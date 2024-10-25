@@ -10,8 +10,20 @@ import { ListingCardComponent } from "../../elements/listing-card/listing-card.c
 })
 export class LeftPanelComponent {
   topics: any[] = [
-    { title: "Topic 1", desc: "About topic 1" },
-    // { title: "Topic 2", desc: "About topic 2" },
-    // { title: "Topic 3", desc: "About topic 3" },
+    { id: 0, title: "Topic 1", desc: "About topic 1" },
+    { id: 1, title: "Topic 2", desc: "About topic 2" },
+    { id: 2, title: "Topic 3", desc: "About topic 3" },
+    { id: 0, title: "Topic 1", desc: "About topic 1" },
+    { id: 1, title: "Topic 2", desc: "About topic 2" },
+    { id: 2, title: "Topic 3", desc: "About topic 3" },
+    { id: 0, title: "Topic 1", desc: "About topic 1" },
+    { id: 1, title: "Topic 2", desc: "About topic 2" },
+    { id: 2, title: "Topic 3", desc: "About topic 3" },
+    { id: 0, title: "Topic 1", desc: "About topic 1" },
+    { id: 1, title: "Topic 2", desc: "About topic 2" },
+    { id: 2, title: "Topic 3", desc: "About topic 3" },
+    { id: 0, title: "Topic 1", desc: "About topic 1" },
+    { id: 1, title: "Topic 2", desc: "About topic 2" },
+    { id: 2, title: "Topic 3", desc: "About topic 3" },
   ];
 }

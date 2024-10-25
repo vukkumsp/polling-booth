@@ -1,5 +1,5 @@
 <div>
     @for(topic of topics; track $index){
-        <app-listing-card [cardTitle]="topic.title" [cardDescription]="topic.desc"/>
+        <app-listing-card [id]="topic.id" [cardTitle]="topic.title" [cardDescription]="topic.desc"/>
     }
 </div>
