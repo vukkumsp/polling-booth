@@ -7,23 +7,25 @@ import { AccountRole, initialAccount } from "./account.state";
 export const connectedUserReducer = createReducer(
     initialAccount,
     on( ownerConnected, 
-        state => (
+        (state, {address}) => (
             {...state, 
-                role: AccountRole.OWNER
+                role: AccountRole.OWNER,
+                address
             }
         )
     ),
     on( nonOwnerConnected, 
-        state => (
+        (state, {address}) => (
             {...state, 
-                state: AccountRole.USER
+                role: AccountRole.USER,
+                address
             }
         )
     ),
     on( noOneConnected, 
         state => (
             {...state, 
-                state: AccountRole.GUEST
+                role: AccountRole.GUEST
             }
         )
     )

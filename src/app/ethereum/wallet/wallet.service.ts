@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { ethers } from 'ethers';
 import { Summary } from '../contractProxyClasses/Summary';
 import { Result } from '../contractProxyClasses/Result';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../state/app.state';
+import { nonOwnerConnected, ownerConnected } from '../../state/account/account.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +30,7 @@ export class WalletService {
    pendingNonce: any;
    ownerAddress: any;
 
-  constructor() {
+  constructor(private store: Store<AppState>) {
     const {ethereum} = <any>window;
     this.ethereum = ethereum;
 
@@ -118,9 +121,11 @@ export class WalletService {
 
     if(this.signerAddress===this.ownerAddress){
       console.log("Role: OWNER")
+      this.store.dispatch(ownerConnected({address: this.signerAddress}));
     }
     else{
       console.log("Role: USER");
+      this.store.dispatch(nonOwnerConnected({address: this.signerAddress}));
     }
 
     //ops
@@ -132,7 +137,7 @@ export class WalletService {
 
     // //execute all owner only ops and see
     // try{
-    //   const tx = await this.contract['startVotingEvent']("Topic B",["Option I", "Option II", "Option III"], { nonce: this.currentNonce });
+    //   const tx = await this.contract['startVotingEvent']("Topic A",["Option I", "Option II"], { nonce: this.currentNonce });
     //   const receipt = await tx.wait();
     //   console.log("Successfully called startVotingEvent", receipt);
     // }

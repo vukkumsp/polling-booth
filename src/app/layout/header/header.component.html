@@ -3,7 +3,7 @@
     <h3>Polling Booth</h3>
 </div>
 <div id="Account">
-    {{accountAddress$ | async}} <br>
+    {{accountAddress$ | async | addressFormatter}}<br>
     <!-- {{accountConnected$}} -->
     {{accountRole$ | async}}
 </div>
