@@ -3,6 +3,7 @@
     <h3>Polling Booth</h3>
 </div>
 <div id="Account">
-    [Logged in Account] <br>
-    [Logged in Role]
+    {{accountAddress$ | async}} <br>
+    <!-- {{accountConnected$}} -->
+    {{accountRole$ | async}}
 </div>
