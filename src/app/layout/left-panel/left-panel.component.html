@@ -1,4 +1,7 @@
 <div>
+    @if (user=="OWNER") {
+        <app-add-topic-card></app-add-topic-card>
+    }
     @for(topic of topics; track $index){
         <app-listing-card [id]="topic.id" [cardTitle]="topic.title" [cardDescription]="topic.desc"/>
     }
