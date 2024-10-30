@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { initialContractState } from "./contract.state";
-import { newEventTopicIsInprogress, newEventTopicIsNOTInprogress, saveSummariesList, unSelectedEvent, updateSelectedEvent } from "./contract.actions";
+import { newEventTopicIsInprogress, newEventTopicIsNOTInprogress, saveSummariesList, unSelectedEvent, unSelectedEventId, updateSelectedEvent, updateSelectedEventId } from "./contract.actions";
 
 
 export const connectedContractReducer = createReducer(
@@ -32,6 +32,19 @@ export const connectedContractReducer = createReducer(
         {
             ...state,
             selectedEventSummary: null
+        }
+    )),
+    on(updateSelectedEventId, (state, {id}) => (
+        {
+            ...state,
+            selectedEventId: id,
+            newEventTopicInprogress: false
+        }
+    )),
+    on(unSelectedEventId, (state) => (
+        {
+            ...state,
+            selectedEventId: -1
         }
     ))
 );

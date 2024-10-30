@@ -1,4 +1,9 @@
 <div class="clickable-basic-card" (click)="topicSelectedHandler(id)">
-    <h3>{{cardTitle}}</h3>
-    <p>{{cardDescription}}</p>
+    <h4>
+        <span>{{cardTitle}}</span>
+        <span class="status">
+        @if(status){⚡}
+        @else {⛔}
+        </span>
+    </h4>
 </div>

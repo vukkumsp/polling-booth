@@ -38,6 +38,59 @@
         "type": "uint256"
       }
     ],
+    "name": "getEventSummary",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "string",
+            "name": "topic",
+            "type": "string"
+          },
+          {
+            "components": [
+              {
+                "internalType": "string",
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "internalType": "uint256",
+                "name": "voteCount",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct PollingBoothContract.Option[]",
+            "name": "options",
+            "type": "tuple[]"
+          },
+          {
+            "internalType": "bool",
+            "name": "votingActive",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "exists",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct PollingBoothContract.VotingEventSummary",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      }
+    ],
     "name": "getOptions",
     "outputs": [
       {

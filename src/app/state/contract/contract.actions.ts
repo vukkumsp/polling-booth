@@ -23,3 +23,12 @@ export const updateSelectedEvent = createAction(
 export const unSelectedEvent = createAction(
     '[Selected Event] unselected'
 )
+
+export const updateSelectedEventId = createAction(
+    '[Selected EventId] updated',
+    props<{id: number}>()
+)
+
+export const unSelectedEventId = createAction(
+    '[Selected EventId] unselected'
+)

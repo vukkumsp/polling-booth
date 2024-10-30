@@ -1,9 +1,22 @@
 
-<div id="Title">
+<span id="Title">
     <h3>Polling Booth</h3>
-</div>
-<div id="Account">
-    {{accountAddress$ | async | addressFormatter}}<br>
-    <!-- {{accountConnected$}} -->
-    {{accountRole$ | async}}
-</div>
+</span>
+
+<!-- <span id="AccountAddress">
+    <h6>Polling Booth</h6>
+    <h6>Polling Booth</h6>
+</span> -->
+<span>
+    <div id="AccountAddress">
+        @if((accountRole$ | async)!=null && (accountRole$ | async)=="GUEST"){
+            <h5><app-pb-button>Connect to Wallet</app-pb-button></h5>
+        }
+        @else {
+            <h5>{{accountAddress$ | async | addressFormatter}}</h5>
+        }
+    </div>
+    <div id="AccountRole">
+        <h5>{{accountRole$ | async}}</h5>
+    </div>
+</span>

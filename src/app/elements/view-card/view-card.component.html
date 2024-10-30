@@ -12,14 +12,14 @@
                     <label for="option-{{$index}}">Option {{$index+1}}</label><br>
                     <input type="text" placeholder="Enter an Option" name="option-{{$index}}" ngModel>
                 }
-                <app-pb-button (click)="addAnotherOption()">+</app-pb-button>
-                <app-pb-button (click)="removeLastOption()">-</app-pb-button>
+                <app-pb-button (click)="addAnotherOption()" value="+"/>
+                <app-pb-button (click)="removeLastOption()" value="-"/>
             </div>
             <br>
 
             <br><br>
-            <app-pb-button (click)="createAndSubmitNewTopic(newEventTopicForm)">Submit</app-pb-button>
-            <app-pb-button (click)="cancelNewTopic()">Cancel</app-pb-button>
+            <app-pb-button (click)="createAndSubmitNewTopic(newEventTopicForm)" value="Submit"/>
+            <app-pb-button (click)="cancelNewTopic()" value="Cancel"/>
         </form>
     }
     <!-- if((selectedEventSummary$ | async)!=null) -->
@@ -35,13 +35,12 @@
                         @if ((accountRole$ | async)=="OWNER"){
                             <th>Votes Acquired</th>
                         }
-                        @if(summary.votingActive){
+                        @if(summary.votingActive && (accountRole$ | async)!="GUEST"){
                             <th>
                                 Vote!
                             </th>
                         }
                         </tr>
-                    
                     @for (option of summary.options; track $index) {
                         <tr>
                             <td>
@@ -52,9 +51,9 @@
                                 {{option.voteCount}}
                             </td>
                         }
-                        @if(summary.votingActive){
+                        @if(summary.votingActive && (accountRole$ | async)!="GUEST"){
                             <td>
-                                <app-pb-button>Vote</app-pb-button>
+                                <app-pb-button (click)="vote(eventId, $index)" value="Vote"/>
                             </td>
                         }
                         </tr>
@@ -64,7 +63,13 @@
                 @else {
                     <h3>No Options available for this Event</h3>
                 }
-            
+                @if ((accountRole$ | async)=="OWNER"){
+                    <app-pb-button 
+                        class="end-vote-button" 
+                        (click)="endVoting(eventId)"
+                        [disabled]=!summary.votingActive
+                        value="End Voting"/>
+                }
         }
     }
 </div>

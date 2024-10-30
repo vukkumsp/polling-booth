@@ -16,3 +16,10 @@
     background-color: white;
     border-color: white;
 }
+
+.pb-button-disabled, .pb-button-disabled:hover {
+    color: white;
+    background-color: gray;
+    border-color: gray;
+    cursor:not-allowed;
+}

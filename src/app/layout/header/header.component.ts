@@ -6,11 +6,12 @@ import { selectAccountAddress, selectAccountRole } from '../../state/account/acc
 import { AsyncPipe } from '@angular/common';
 import { AccountRole } from '../../state/account/account.state';
 import { AddressFormatterPipe } from "../../elements/address-formatter-pipe/address-formatter.pipe";
+import { PbButtonComponent } from "../../elements/pb-button/pb-button.component";
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [AsyncPipe, AddressFormatterPipe],
+  imports: [AsyncPipe, AddressFormatterPipe, PbButtonComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })

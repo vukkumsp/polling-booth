@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, switchMap, switchScan } from 'rxjs';
+import { Observable, of, switchMap, switchScan } from 'rxjs';
 import { AppState } from '../../state/app.state';
-import { selectEventSummaries, selectIsNewEventTopicInProgress, selectSelectedEventSummary } from '../../state/contract/contract.selector';
+import { selectEventSummaries, selectIsNewEventTopicInProgress, selectSelectedEventId, selectSelectedEventSummary } from '../../state/contract/contract.selector';
 import { AsyncPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { newEventTopicIsNOTInprogress } from '../../state/contract/contract.actions';
@@ -25,20 +25,22 @@ export class ViewCardComponent {
   tempOptions: string[] = [""];
 
   selectedEventSummary$: Observable<Summary|null>;
+  selectedEventId$: Observable<number>;
   summary: Summary | null = null;
+  eventId: number = -1;
 
   accountRole$: Observable<AccountRole>;
 
   constructor(private store: Store<AppState>, private wallet: WalletService){
     this.isNewEventTopicInprogress$ = store.select(selectIsNewEventTopicInProgress);
     this.selectedEventSummary$ = store.select(selectSelectedEventSummary);
+    this.selectedEventId$ = store.select(selectSelectedEventId);
     this.accountRole$ = this.store.select(selectAccountRole);
   }
 
   ngOnInit(){
-    this.selectedEventSummary$.subscribe(data => {this.summary = data;
-      console.log(">>>>>>>>>>>"+data);
-    });
+    this.selectedEventSummary$.subscribe(data => this.summary = data);
+    this.selectedEventId$.subscribe(data => this.eventId = data)
   }
 
   createAndSubmitNewTopic(formObject: any){
@@ -68,5 +70,15 @@ export class ViewCardComponent {
 
   removeLastOption(){
     this.tempOptions.pop();
+  }
+
+  vote(eventId: number, optionId: number){
+    console.log(`Voting for ${eventId} and selected option: ${optionId}`);
+    this.wallet.vote(eventId, optionId);
+  }
+
+  endVoting(eventId: number){
+    console.log("Ending Voting for eventId: "+eventId);
+    this.wallet.endVoting(eventId);
   }
 }

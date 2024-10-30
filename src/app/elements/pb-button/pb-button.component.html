@@ -1,3 +1,11 @@
-<span class="pb-button">
-    <ng-content></ng-content>
-</span>
+
+@if(disabled){
+    <span class="pb-button pb-button-disabled">
+        {{value}}
+    </span>
+}
+@else {
+    <span class="pb-button">
+        {{value}}
+    </span>
+}

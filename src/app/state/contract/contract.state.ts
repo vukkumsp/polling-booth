@@ -6,11 +6,13 @@ export interface ContractState {
     newEventTopicInprogress: boolean;
     eventSummaries: Summary[];
     selectedEventSummary: Summary | null;
+    selectedEventId: number;
 }
 
 export const initialContractState: ContractState = {
     contract: null,
     newEventTopicInprogress: false,
     eventSummaries: [],
-    selectedEventSummary: null
+    selectedEventSummary: null,
+    selectedEventId: -1
 }

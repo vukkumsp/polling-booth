@@ -6,7 +6,7 @@
         <app-listing-card 
             [id]=$index
             cardTitle={{summary.topic}} 
-            cardDescription={{summary.votingActive}}
+            [status]=summary.votingActive
             [summary]=summary
         />
     }

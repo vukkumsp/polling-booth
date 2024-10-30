@@ -18,3 +18,8 @@ export const selectSelectedEventSummary = createSelector(
     selectContractState,
     (state: ContractState) => state.selectedEventSummary
 )
+
+export const selectSelectedEventId = createSelector(
+    selectContractState,
+    (state: ContractState) => state.selectedEventId
+)

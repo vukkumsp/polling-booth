@@ -1,9 +1,15 @@
 #Title {
-    display: inline-block;
-    width: 80%;
+    /* display: inline-block; */
+    float: left;
+    /* width: 70%; */
+    margin-left: 10px;
 }
 
-#Account {
-    display: inline-block;
-    width: 20%;
+#AccountAddress, #AccountRole {
+    /* display: inline-block; */
+    float: right;
+    /* margin-top: 10px; */
+    /* margin-left: 10px; */
+    margin-right: 10px;
+    /* width: 20%; */
 }

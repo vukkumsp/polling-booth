@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-pb-button',
@@ -8,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './pb-button.component.css'
 })
 export class PbButtonComponent {
-
+  @Input() disabled: boolean = false;
+  @Input() value: string = "";
 }

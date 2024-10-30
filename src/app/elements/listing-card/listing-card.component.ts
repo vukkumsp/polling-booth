@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../state/app.state';
-import { updateSelectedEvent } from '../../state/contract/contract.actions';
+import { updateSelectedEvent, updateSelectedEventId } from '../../state/contract/contract.actions';
 import { Summary } from '../../ethereum/contractProxyClasses/Summary';
 
 @Component({
@@ -16,7 +16,7 @@ import { Summary } from '../../ethereum/contractProxyClasses/Summary';
 export class ListingCardComponent {
   @Input() id: number = -1;
   @Input() cardTitle: string = "";
-  @Input() cardDescription: string = "";
+  @Input() status: boolean = false;
 
   @Input() summary: Summary|null = null;
 
@@ -26,5 +26,6 @@ export class ListingCardComponent {
     console.log("selecting this topic")
     console.log(selectedId);
     this.store.dispatch(updateSelectedEvent({summary: this.summary}));
+    this.store.dispatch(updateSelectedEventId({id:selectedId}));
   }
 }
