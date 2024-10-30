@@ -1,75 +1,87 @@
 <div class="basic-card view-card">
     @if(isNewEventTopicInprogress$ | async){
-        <!-- Form to fill in details for new topic and submit option -->
-        <!-- (ngSubmit)="createAndSubmitNewTopic(newEventTopicForm)" -->
-        <form #newEventTopicForm="ngForm">
-            <label for="topicName">Topic Name</label><br>
-            <input type="text" placeholder="Enter Topic Name" name="topic" ngModel>
+    <!-- Form to fill in details for new topic and submit option -->
+    <!-- (ngSubmit)="createAndSubmitNewTopic(newEventTopicForm)" -->
+    <form #newEventTopicForm="ngForm">
+        <label for="topicName">Topic Name</label><br>
+        <input type="text" class="text-box-topic" placeholder="Enter Topic Name" name="topic" ngModel>
+        <br>
+        <div>
+            @for (optionFormElement of tempOptions; track $index) {
             <br>
             <div>
-                @for (optionFormElement of tempOptions; track $index) {
-                    <br>
-                    <label for="option-{{$index}}">Option {{$index+1}}</label><br>
-                    <input type="text" placeholder="Enter an Option" name="option-{{$index}}" ngModel>
-                }
-                <app-pb-button (click)="addAnotherOption()" value="+"/>
-                <app-pb-button (click)="removeLastOption()" value="-"/>
+                <label for="option-{{$index}}">Option {{$index+1}}</label><br>
+                <input type="text" class="text-box-option" placeholder="Enter an Option" name="option-{{$index}}"
+                    ngModel>
             </div>
-            <br>
 
+            }
             <br><br>
-            <app-pb-button (click)="createAndSubmitNewTopic(newEventTopicForm)" value="Submit"/>
-            <app-pb-button (click)="cancelNewTopic()" value="Cancel"/>
-        </form>
+            <div class="add-remove-button">
+                <app-pb-button (click)="addAnotherOption()" value="Add" />
+                <app-pb-button (click)="removeLastOption()" value="Remove" />
+            </div>
+
+        </div>
+        <br>
+
+        <br><br>
+        <app-pb-button (click)="createAndSubmitNewTopic(newEventTopicForm)" value="Submit" />
+        <app-pb-button (click)="cancelNewTopic()" value="Cancel" />
+    </form>
     }
     <!-- if((selectedEventSummary$ | async)!=null) -->
-    @else {
-        @if(summary){
-            <h1>Topic Name: {{summary.topic}}</h1>
-            Voting Active: {{summary.votingActive}}
+    @else if(summary){
+    <h1>Topic Name: {{summary.topic}}</h1>
+    Voting Active: {{summary.votingActive}}
 
-                @if(summary.options.length>0){
-                    <table>
-                        <tr>
-                            <th>Option Name</th>
-                        @if ((accountRole$ | async)=="OWNER"){
-                            <th>Votes Acquired</th>
-                        }
-                        @if(summary.votingActive && (accountRole$ | async)!="GUEST"){
-                            <th>
-                                Vote!
-                            </th>
-                        }
-                        </tr>
-                    @for (option of summary.options; track $index) {
-                        <tr>
-                            <td>
-                                {{option.name}}
-                            </td>
-                        @if ((accountRole$ | async)=="OWNER"){
-                            <td>
-                                {{option.voteCount}}
-                            </td>
-                        }
-                        @if(summary.votingActive && (accountRole$ | async)!="GUEST"){
-                            <td>
-                                <app-pb-button (click)="vote(eventId, $index)" value="Vote"/>
-                            </td>
-                        }
-                        </tr>
-                    }
-                    </table>
-                }
-                @else {
-                    <h3>No Options available for this Event</h3>
-                }
-                @if ((accountRole$ | async)=="OWNER"){
-                    <app-pb-button 
-                        class="end-vote-button" 
-                        (click)="endVoting(eventId)"
-                        [disabled]=!summary.votingActive
-                        value="End Voting"/>
-                }
+    @if(summary.options.length>0){
+    <table>
+        <tr>
+            <th>Option Name</th>
+            @if ((accountRole$ | async)=="OWNER"){
+            <th>Votes Acquired</th>
+            }
+            @if(summary.votingActive && (accountRole$ | async)!="GUEST"){
+            <th>
+                Vote!
+            </th>
+            }
+        </tr>
+        @for (option of summary.options; track $index) {
+        <tr>
+            <td>
+                {{option.name}}
+            </td>
+            @if ((accountRole$ | async)=="OWNER"){
+            <td>
+                {{option.voteCount}}
+            </td>
+            }
+            @if(summary.votingActive && (accountRole$ | async)!="GUEST"){
+            <td>
+                <app-pb-button (click)="vote(eventId, $index)" value="Vote" />
+            </td>
+            }
+        </tr>
         }
+    </table>
+    }
+    @else {
+    <h3>No Options available for this Event</h3>
+    }
+    @if ((accountRole$ | async)=="OWNER"){
+    <app-pb-button class="end-vote-button" (click)="endVoting(eventId)" [disabled]=!summary.votingActive
+        value="End Voting" />
+    }
+<br><br>
+    }
+
+    @else {
+        <h1>Welcome to Polling Booth</h1>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+
+        <h2>Lorem Ipsum</h2>
+        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
     }
 </div>

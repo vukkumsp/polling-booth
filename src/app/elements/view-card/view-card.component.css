@@ -1,5 +1,5 @@
 .view-card {
-    height:75vh;
+    height:80%;
     padding: 20px;
 }
 
@@ -7,6 +7,20 @@
     float: right;
     margin-top: 20px;
 }
+
+.add-remove-button {
+    float: right;
+}
+
+.text-box-topic, .text-box-option {
+    /* width: calc(66.6vw * 0.8); */
+    width: 98.7%;
+}
+
+/* .text-box-option {
+    width: calc(51vw * 0.8);
+    width: 78%;
+} */
 
 /* https://www.w3schools.com/html/tryit.asp?filename=tryhtml_table_intro */
 table {
