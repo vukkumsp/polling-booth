@@ -147,7 +147,7 @@ export class WalletService {
       let summaries = (await this.getSummary());
       console.log("Summaries", summaries);
       this.store.dispatch(saveSummariesList({summaries}));
-      
+
       return receipt;
     }
     catch(error){
@@ -426,8 +426,23 @@ export class WalletService {
     const address = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
     const abi = require('./abi.json');
 
+    if (!this.ethereum) {
+      // If MetaMask is not installed, we use the default provider,
+      // which is backed by a variety of third-party services (such
+      // as INFURA). They do not have private keys installed,
+      // so they only have read-only access
+      console.log("MetaMask not installed; using read-only defaults")
+      this.provider = ethers.getDefaultProvider();
+      console.log(this.provider);
+      console.error('Ethereum provider not found');
+      alert("Please install Metamask or use a Wallet enabled browser!");
+    }
+
+    // Connect to the MetaMask EIP-1193 object. This is a standard
+    // protocol that allows Ethers access to make all read-only
+    // requests through MetaMask.
     this.provider = new ethers.BrowserProvider(this.ethereum);
-    await this.provider.send("eth_requestAccounts",[]);
+    // await this.provider.send("eth_requestAccounts",[]);
     this.signer = await this.provider.getSigner();
     console.log("Signer:", this.signer);
     this.signerAddress = await this.signer.getAddress();
