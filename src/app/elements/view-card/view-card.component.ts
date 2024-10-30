@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { newEventTopicIsNOTInprogress } from '../../state/contract/contract.actions';
 import { PbButtonComponent } from "../pb-button/pb-button.component";
 import { AddTopicCardComponent } from "../add-topic-card/add-topic-card.component";
+import { WalletService } from '../../ethereum/wallet/wallet.service';
 
 @Component({
   selector: 'app-view-card',
@@ -20,12 +21,24 @@ export class ViewCardComponent {
   isNewEventTopicInprogress$: Observable<boolean>;
   tempOptions: string[] = [""]
 
-  constructor(private store: Store<AppState>){
+  constructor(private store: Store<AppState>, private wallet: WalletService){
     this.isNewEventTopicInprogress$ = store.select(selectIsNewEventTopicInProgress);
   }
 
   createAndSubmitNewTopic(formObject: any){
-    console.log(formObject.form.value);
+    let formData = formObject.form.value;
+    let topic = formData.topic;
+    let options: any = [];
+    console.log(formData);
+    //validate all fields
+    if(topic.length>0){
+      for(let key in Object.keys(formData)){
+        if(key.startsWith("option")){
+          options[key.split("-")[1]] = formData[key];
+        }
+      }
+    }
+    this.wallet.startVotingEvent(topic, options);
   }
 
   cancelNewTopic(){

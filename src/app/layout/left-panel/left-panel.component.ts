@@ -6,19 +6,29 @@ import { AppState } from '../../state/app.state';
 import { Observable } from 'rxjs';
 import { AccountRole } from '../../state/account/account.state';
 import { selectAccountRole } from '../../state/account/account.selector';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, JsonPipe } from '@angular/common';
+import { Summary } from '../../ethereum/contractProxyClasses/Summary';
+import { selectEventSummaries } from '../../state/contract/contract.selector';
 
 @Component({
   selector: 'app-left-panel',
   standalone: true,
-  imports: [ListingCardComponent, AddTopicCardComponent, AsyncPipe],
+  imports: [ListingCardComponent, AddTopicCardComponent, AsyncPipe, JsonPipe],
   templateUrl: './left-panel.component.html',
   styleUrl: './left-panel.component.css'
 })
 export class LeftPanelComponent {
   accountRole$: Observable<AccountRole>;
+  eventSummaries$: Observable<Summary[]>;
   constructor(private store: Store<AppState>){
     this.accountRole$ = this.store.select(selectAccountRole);
+    this.eventSummaries$ = this.store.select(selectEventSummaries);
+  }
+
+  ngOnInit(){
+    this.eventSummaries$.subscribe(
+      val => console.log(val)
+    )
   }
 
   topics: any[] = [

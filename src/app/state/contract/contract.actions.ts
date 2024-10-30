@@ -1,4 +1,5 @@
-import { createAction } from "@ngrx/store";
+import { createAction, props } from "@ngrx/store";
+import { Summary } from "../../ethereum/contractProxyClasses/Summary";
 
 
 export const newEventTopicIsInprogress = createAction(
@@ -7,4 +8,9 @@ export const newEventTopicIsInprogress = createAction(
 
 export const newEventTopicIsNOTInprogress = createAction(
     '[New Topic] creation NOT inprogress'
+);
+
+export const saveSummariesList = createAction(
+    '[Event Summaries] updated',
+    props<{summaries: Summary[]}>()
 );

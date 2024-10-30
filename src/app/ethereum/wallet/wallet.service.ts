@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../state/app.state';
 import { nonOwnerConnected, ownerConnected } from '../../state/account/account.actions';
 import { Option } from '../contractProxyClasses/Option';
+import { saveSummariesList } from '../../state/contract/contract.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,8 @@ export class WalletService {
 
     this.getContract();
     // this.op_endVoting();
+
+    
   }
 
 
@@ -106,29 +109,29 @@ export class WalletService {
   }
 
   async startVotingEvent(topic:string, options:string[]){
-    const address = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
-    const abi = require('./abi.json');
+    // const address = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+    // const abi = require('./abi.json');
 
-    this.provider = new ethers.BrowserProvider(this.ethereum);
-    await this.provider.send("eth_requestAccounts",[]);
-    this.signer = await this.provider.getSigner();
-    console.log("Signer:", this.signer);
-    this.signerAddress = await this.signer.getAddress();
+    // this.provider = new ethers.BrowserProvider(this.ethereum);
+    // await this.provider.send("eth_requestAccounts",[]);
+    // this.signer = await this.provider.getSigner();
+    // console.log("Signer:", this.signer);
+    // this.signerAddress = await this.signer.getAddress();
 
-    this.contract = new ethers.Contract(address, abi, this.signer);
+    // this.contract = new ethers.Contract(address, abi, this.signer);
 
-    this.ownerAddress = await this.contract.owner();
-    console.log("owner", this.ownerAddress);
+    // this.ownerAddress = await this.contract.owner();
+    // console.log("owner", this.ownerAddress);
 
-    if(this.signerAddress===this.ownerAddress){
-      console.log("Role: OWNER")
-      this.store.dispatch(ownerConnected({address: this.signerAddress}));
-    }
-    else{
-      console.log("Role: USER");
-      this.store.dispatch(nonOwnerConnected({address: this.signerAddress}));
-    }
-
+    // if(this.signerAddress===this.ownerAddress){
+    //   console.log("Role: OWNER")
+    //   this.store.dispatch(ownerConnected({address: this.signerAddress}));
+    // }
+    // else{
+    //   console.log("Role: USER");
+    //   this.store.dispatch(nonOwnerConnected({address: this.signerAddress}));
+    // }
+ 
     //ops
     this.currentNonce = await this.provider.getTransactionCount(await this.signer.getAddress());
     this.pendingNonce = await this.provider.getTransactionCount(await this.signer.getAddress(), 'pending');
@@ -136,9 +139,15 @@ export class WalletService {
 
     //execute all owner only ops and see
     try{
-      const tx = await this.contract['startVotingEvent']("Topic A",["Option I", "Option II"], { nonce: this.currentNonce });
+      const tx = await this.contract['startVotingEvent'](topic,options, { nonce: this.currentNonce });
       const receipt = await tx.wait();
       console.log("Successfully called startVotingEvent", receipt);
+
+      //refresh summary data in ui
+      let summaries = (await this.getSummary());
+      console.log("Summaries", summaries);
+      this.store.dispatch(saveSummariesList({summaries}));
+      
       return receipt;
     }
     catch(error){
@@ -359,29 +368,29 @@ export class WalletService {
     return [];
   }
 
-  async getSummary(){
-    const address = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
-    const abi = require('./abi.json');
+  async getSummary(): Promise<Summary[]>{
+    // const address = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+    // const abi = require('./abi.json');
 
-    this.provider = new ethers.BrowserProvider(this.ethereum);
-    await this.provider.send("eth_requestAccounts",[]);
-    this.signer = await this.provider.getSigner();
-    console.log("Signer:", this.signer);
-    this.signerAddress = await this.signer.getAddress();
+    // this.provider = new ethers.BrowserProvider(this.ethereum);
+    // await this.provider.send("eth_requestAccounts",[]);
+    // this.signer = await this.provider.getSigner();
+    // console.log("Signer:", this.signer);
+    // this.signerAddress = await this.signer.getAddress();
 
-    this.contract = new ethers.Contract(address, abi, this.signer);
+    // this.contract = new ethers.Contract(address, abi, this.signer);
 
-    this.ownerAddress = await this.contract.owner();
-    console.log("owner", this.ownerAddress);
+    // this.ownerAddress = await this.contract.owner();
+    // console.log("owner", this.ownerAddress);
 
-    if(this.signerAddress===this.ownerAddress){
-      console.log("Role: OWNER")
-      this.store.dispatch(ownerConnected({address: this.signerAddress}));
-    }
-    else{
-      console.log("Role: USER");
-      this.store.dispatch(nonOwnerConnected({address: this.signerAddress}));
-    }
+    // if(this.signerAddress===this.ownerAddress){
+    //   console.log("Role: OWNER")
+    //   this.store.dispatch(ownerConnected({address: this.signerAddress}));
+    // }
+    // else{
+    //   console.log("Role: USER");
+    //   this.store.dispatch(nonOwnerConnected({address: this.signerAddress}));
+    // }
 
     //ops
     this.currentNonce = await this.provider.getTransactionCount(this.signer.getAddress());
@@ -397,16 +406,20 @@ export class WalletService {
       for(let summary of summaries){
         console.log(summary);
       }
-      // console.log("Successfully called summary[0].topic: ", summary[0].topic);
-      // console.log("Successfully called summary[0].options[1]", summary[0].options[1]);
-      // console.log("Successfully called summary[0].options.length", summary[0].options.length);
+      console.log("Successfully called summary[0].topic: ", summaries[0].topic);
+      console.log("Successfully called summary[1].topic: ", summaries[1].topic);
+      console.log("Successfully called summary[2].topic: ", summaries[2].topic);
+      console.log("Successfully called summary[0].options[1]", summaries[0].options[1]);
+      console.log("Successfully called summary[0].options.length", summaries[0].options.length);
+
 
       return summaries;
     }
     catch(error){
       console.error("Error during write op", error);
     }
-    return [];
+    const summaries: Summary[] = [];
+    return summaries;
   }
 
   async getContract(){
@@ -432,6 +445,12 @@ export class WalletService {
       console.log("Role: USER");
       this.store.dispatch(nonOwnerConnected({address: this.signerAddress}));
     }
+
+    // await this.startVotingEvent("Topic A", ["Option I", "Option II"])
+
+    let summaries = (await this.getSummary());
+    console.log("Summaries", summaries);
+    this.store.dispatch(saveSummariesList({summaries}));
 
     //ops
 

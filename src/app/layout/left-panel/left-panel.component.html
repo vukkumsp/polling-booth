@@ -2,7 +2,11 @@
     @if ((accountRole$ | async)=="OWNER") {
         <app-add-topic-card></app-add-topic-card>
     }
-    @for(topic of topics; track $index){
-        <app-listing-card [id]="topic.id" [cardTitle]="topic.title" [cardDescription]="topic.desc"/>
+    @for(summary of eventSummaries$|async; track $index){
+        <app-listing-card 
+            [id]=$index
+            cardTitle={{summary.topic}} 
+            cardDescription={{summary.votingActive}}
+        />
     }
 </div>

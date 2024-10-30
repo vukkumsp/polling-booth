@@ -8,3 +8,8 @@ export const selectIsNewEventTopicInProgress = createSelector(
     selectContractState,
     (state: ContractState) => state.newEventTopicInprogress
 )
+
+export const selectEventSummaries = createSelector(
+    selectContractState,
+    (state: ContractState) => state.eventSummaries
+)
