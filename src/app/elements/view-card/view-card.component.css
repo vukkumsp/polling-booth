@@ -1,7 +1,4 @@
 .view-card {
-    background-color: aquamarine;
+    height:75vh;
     padding: 20px;
-    margin-top: 20px;
-    border-radius:5px;
-    height:76vh;
 }

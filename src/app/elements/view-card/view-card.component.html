@@ -1,4 +1,4 @@
-<div class="view-card">
+<div class="basic-card view-card">
     @if(isNewEventTopicInprogress$ | async){
         <!-- Form to fill in details for new topic and submit option -->
         <form #newEventTopicForm="ngForm" (ngSubmit)="createAndSubmitNewTopic(newEventTopicForm)">

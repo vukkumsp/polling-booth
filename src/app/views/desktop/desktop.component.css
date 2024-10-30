@@ -11,9 +11,16 @@
 
 .header {
     grid-area: header;
-    background-color: rgb(254, 167, 167);
-    border-radius:5px;
+    /* background-color: white; */
+    /* border-radius:5px; */
     overflow-y: none;
+
+    /* background-color: white; */
+    /* cursor: pointer; */
+    /* border-radius:10px;
+    border-width: 1px;
+    border-style: dashed;
+    margin: 5px; */
 }
 
 .sidebar {
@@ -21,6 +28,7 @@
     /* background-color: greenyellow; */
     height: 87vh; 
     overflow-y: auto;
+    scrollbar-color: white black;
 }
 
 .content {
