@@ -3,17 +3,17 @@
     <h3>Polling Booth</h3>
 </span>
 
-<!-- <span id="AccountAddress">
-    <h6>Polling Booth</h6>
-    <h6>Polling Booth</h6>
-</span> -->
 <span>
     <div id="AccountAddress">
         @if((accountRole$ | async)!=null && (accountRole$ | async)=="GUEST"){
-            <h5><app-pb-button>Connect to Wallet</app-pb-button></h5>
+            <h5><app-pb-button value="Connect to Wallet"/></h5>
         }
         @else {
-            <h5>{{accountAddress$ | async | addressFormatter}}</h5>
+            <h5>
+                {{accountAddress$ | async | addressFormatter}}
+                <app-pb-button value="Change Account"/>
+            </h5>
+            
         }
     </div>
     <div id="AccountRole">
