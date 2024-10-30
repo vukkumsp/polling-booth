@@ -14,3 +14,12 @@ export const saveSummariesList = createAction(
     '[Event Summaries] updated',
     props<{summaries: Summary[]}>()
 );
+
+export const updateSelectedEvent = createAction(
+    '[Selected Event] updated',
+    props<{summary: Summary|null}>()
+)
+
+export const unSelectedEvent = createAction(
+    '[Selected Event] unselected'
+)

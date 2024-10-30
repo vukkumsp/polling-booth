@@ -22,7 +22,49 @@
             <app-pb-button (click)="cancelNewTopic()">Cancel</app-pb-button>
         </form>
     }
+    <!-- if((selectedEventSummary$ | async)!=null) -->
     @else {
-        Selected Topic
+        @if(summary){
+            <h1>Topic Name: {{summary.topic}}</h1>
+            Voting Active: {{summary.votingActive}}
+
+                @if(summary.options.length>0){
+                    <table>
+                        <tr>
+                            <th>Option Name</th>
+                        @if ((accountRole$ | async)=="OWNER"){
+                            <th>Votes Acquired</th>
+                        }
+                        @if(summary.votingActive){
+                            <th>
+                                Vote!
+                            </th>
+                        }
+                        </tr>
+                    
+                    @for (option of summary.options; track $index) {
+                        <tr>
+                            <td>
+                                {{option.name}}
+                            </td>
+                        @if ((accountRole$ | async)=="OWNER"){
+                            <td>
+                                {{option.voteCount}}
+                            </td>
+                        }
+                        @if(summary.votingActive){
+                            <td>
+                                <app-pb-button>Vote</app-pb-button>
+                            </td>
+                        }
+                        </tr>
+                    }
+                    </table>
+                }
+                @else {
+                    <h3>No Options available for this Event</h3>
+                }
+            
+        }
     }
 </div>

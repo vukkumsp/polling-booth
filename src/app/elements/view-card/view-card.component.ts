@@ -1,14 +1,17 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, switchMap, switchScan } from 'rxjs';
 import { AppState } from '../../state/app.state';
-import { selectIsNewEventTopicInProgress } from '../../state/contract/contract.selector';
+import { selectEventSummaries, selectIsNewEventTopicInProgress, selectSelectedEventSummary } from '../../state/contract/contract.selector';
 import { AsyncPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { newEventTopicIsNOTInprogress } from '../../state/contract/contract.actions';
 import { PbButtonComponent } from "../pb-button/pb-button.component";
 import { AddTopicCardComponent } from "../add-topic-card/add-topic-card.component";
 import { WalletService } from '../../ethereum/wallet/wallet.service';
+import { Summary } from '../../ethereum/contractProxyClasses/Summary';
+import { AccountRole } from '../../state/account/account.state';
+import { selectAccountRole } from '../../state/account/account.selector';
 
 @Component({
   selector: 'app-view-card',
@@ -19,10 +22,23 @@ import { WalletService } from '../../ethereum/wallet/wallet.service';
 })
 export class ViewCardComponent {
   isNewEventTopicInprogress$: Observable<boolean>;
-  tempOptions: string[] = [""]
+  tempOptions: string[] = [""];
+
+  selectedEventSummary$: Observable<Summary|null>;
+  summary: Summary | null = null;
+
+  accountRole$: Observable<AccountRole>;
 
   constructor(private store: Store<AppState>, private wallet: WalletService){
     this.isNewEventTopicInprogress$ = store.select(selectIsNewEventTopicInProgress);
+    this.selectedEventSummary$ = store.select(selectSelectedEventSummary);
+    this.accountRole$ = this.store.select(selectAccountRole);
+  }
+
+  ngOnInit(){
+    this.selectedEventSummary$.subscribe(data => {this.summary = data;
+      console.log(">>>>>>>>>>>"+data);
+    });
   }
 
   createAndSubmitNewTopic(formObject: any){
@@ -32,12 +48,12 @@ export class ViewCardComponent {
     console.log(formData);
     //validate all fields
     if(topic.length>0){
-      for(let key in Object.keys(formData)){
-        if(key.startsWith("option")){
-          options[key.split("-")[1]] = formData[key];
-        }
+      console.log(topic.length);
+      for(let i=0;i<Object.keys(formData).length-1;++i){
+        options.push(formData["option-"+i]);
       }
     }
+    console.log("options given", options);
     this.wallet.startVotingEvent(topic, options);
   }
 
