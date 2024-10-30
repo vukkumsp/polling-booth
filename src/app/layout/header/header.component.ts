@@ -7,6 +7,7 @@ import { AsyncPipe } from '@angular/common';
 import { AccountRole } from '../../state/account/account.state';
 import { AddressFormatterPipe } from "../../elements/address-formatter-pipe/address-formatter.pipe";
 import { PbButtonComponent } from "../../elements/pb-button/pb-button.component";
+import { newEventTopicIsNOTInprogress, unSelectedEvent, unSelectedEventId } from '../../state/contract/contract.actions';
 
 @Component({
   selector: 'app-header',
@@ -27,5 +28,11 @@ export class HeaderComponent {
   ngOnInit(){
     // this.accountConnected$ = this.store.select(selectConnectionStatus);
     // this.accountRole$.subscribe(val => console.log(val));
+  }
+
+  goToHome(){
+    this.store.dispatch(newEventTopicIsNOTInprogress());
+    this.store.dispatch(unSelectedEvent());
+    this.store.dispatch(unSelectedEventId());
   }
 }

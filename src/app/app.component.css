@@ -1,4 +1,9 @@
 app-desktop {
     display: block;
-    height: 97vh;
+    /* height: 70%; */
+}
+
+.footer{
+    text-align: center;
+    color: white;
 }
