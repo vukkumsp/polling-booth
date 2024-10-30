@@ -1,226 +1,239 @@
 [
-    {
-      "inputs": [],
-      "stateMutability": "nonpayable",
-      "type": "constructor"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "eventId",
-          "type": "uint256"
-        }
-      ],
-      "name": "endVoting",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "eventCount",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "eventId",
-          "type": "uint256"
-        }
-      ],
-      "name": "getOptions",
-      "outputs": [
-        {
-          "components": [
-            {
-              "internalType": "string",
-              "name": "name",
-              "type": "string"
-            },
-            {
-              "internalType": "uint256",
-              "name": "voteCount",
-              "type": "uint256"
-            }
-          ],
-          "internalType": "struct PollingBoothContract.Option[]",
-          "name": "",
-          "type": "tuple[]"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "eventId",
-          "type": "uint256"
-        }
-      ],
-      "name": "getResults",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "winnerName",
-          "type": "string"
-        },
-        {
-          "internalType": "uint256",
-          "name": "winnerVoteCount",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "name",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "owner",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "_topicName",
-          "type": "string"
-        },
-        {
-          "internalType": "string[]",
-          "name": "_optionNames",
-          "type": "string[]"
-        }
-      ],
-      "name": "startVotingEvent",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "eventId",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint8",
-          "name": "_optionId",
-          "type": "uint8"
-        }
-      ],
-      "name": "vote",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "name": "votingEvents",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "topic",
-          "type": "string"
-        },
-        {
-          "internalType": "bool",
-          "name": "votingActive",
-          "type": "bool"
-        },
-        {
-          "internalType": "bool",
-          "name": "exists",
-          "type": "bool"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "votingEventsSummary",
-      "outputs": [
-        {
-          "components": [
-            {
-              "internalType": "string",
-              "name": "topic",
-              "type": "string"
-            },
-            {
-              "components": [
-                {
-                  "internalType": "string",
-                  "name": "name",
-                  "type": "string"
-                },
-                {
-                  "internalType": "uint256",
-                  "name": "voteCount",
-                  "type": "uint256"
-                }
-              ],
-              "internalType": "struct PollingBoothContract.Option[]",
-              "name": "options",
-              "type": "tuple[]"
-            },
-            {
-              "internalType": "bool",
-              "name": "votingActive",
-              "type": "bool"
-            },
-            {
-              "internalType": "bool",
-              "name": "exists",
-              "type": "bool"
-            }
-          ],
-          "internalType": "struct PollingBoothContract.VotingEventSummary[]",
-          "name": "",
-          "type": "tuple[]"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    }
-  ]
+  {
+    "inputs": [],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      }
+    ],
+    "name": "endVoting",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "eventCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getOptions",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "string",
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "voteCount",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct PollingBoothContract.Option[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getResults",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "winnerName",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "winnerVoteCount",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "isOwner",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "name",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_topicName",
+        "type": "string"
+      },
+      {
+        "internalType": "string[]",
+        "name": "_optionNames",
+        "type": "string[]"
+      }
+    ],
+    "name": "startVotingEvent",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint8",
+        "name": "_optionId",
+        "type": "uint8"
+      }
+    ],
+    "name": "vote",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "votingEvents",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "topic",
+        "type": "string"
+      },
+      {
+        "internalType": "bool",
+        "name": "votingActive",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "exists",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "votingEventsSummary",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "string",
+            "name": "topic",
+            "type": "string"
+          },
+          {
+            "components": [
+              {
+                "internalType": "string",
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "internalType": "uint256",
+                "name": "voteCount",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct PollingBoothContract.Option[]",
+            "name": "options",
+            "type": "tuple[]"
+          },
+          {
+            "internalType": "bool",
+            "name": "votingActive",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "exists",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct PollingBoothContract.VotingEventSummary[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

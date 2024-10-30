@@ -1,3 +1,4 @@
+import { ethers } from "ethers";
 
 export enum AccountRole{
     OWNER="OWNER", 
@@ -8,9 +9,11 @@ export enum AccountRole{
 export interface AccountState {
     role: AccountRole;
     address: string;
+    provider: ethers.BrowserProvider | null;
 }
 
 export const initialAccount: AccountState = {
     role: AccountRole.GUEST,
-    address: ""
+    address: "",
+    provider: null
 }

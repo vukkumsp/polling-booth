@@ -1,3 +1,19 @@
 <div class="view-card">
-    Selected Topic
+    @if(isNewEventTopicInprogress$ | async){
+        <!-- Form to fill in details for new topic and submit option -->
+        <form #newEventTopicForm="ngForm" (ngSubmit)="createAndSubmitNewTopic(newEventTopicForm)">
+            <label for="topicName">Topic Name</label>
+            <input type="text" placeholder="Enter Topic Name" name="topic" ngModel>
+            <br>
+            <div>
+                
+            </div>
+            <br>
+            <button type="submit">Submit</button>
+            <button type="button" (click)="cancelNewTopic()">Cancel</button>
+        </form>
+    }
+    @else {
+        Selected Topic
+    }
 </div>
