@@ -10,11 +10,12 @@ import { FormsModule, NgModel } from '@angular/forms';
   styleUrl: './listing-card.component.css'
 })
 export class ListingCardComponent {
-  @Input() id: string = "";
+  @Input() id: number = -1;
   @Input() cardTitle: string = "";
   @Input() cardDescription: string = "";
 
-  topicSelectedHandler(selectedId: string){
+  topicSelectedHandler(selectedId: number){
+    console.log("selecting this topic")
     console.log(selectedId);
   }
 }

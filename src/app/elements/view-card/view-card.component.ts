@@ -6,17 +6,19 @@ import { selectIsNewEventTopicInProgress } from '../../state/contract/contract.s
 import { AsyncPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { newEventTopicIsNOTInprogress } from '../../state/contract/contract.actions';
+import { PbButtonComponent } from "../pb-button/pb-button.component";
+import { AddTopicCardComponent } from "../add-topic-card/add-topic-card.component";
 
 @Component({
   selector: 'app-view-card',
   standalone: true,
-  imports: [AsyncPipe, FormsModule],
+  imports: [AsyncPipe, FormsModule, PbButtonComponent, AddTopicCardComponent],
   templateUrl: './view-card.component.html',
   styleUrl: './view-card.component.css'
 })
 export class ViewCardComponent {
   isNewEventTopicInprogress$: Observable<boolean>;
-  tempOptionsLength: number = 1;
+  tempOptions: string[] = [""]
 
   constructor(private store: Store<AppState>){
     this.isNewEventTopicInprogress$ = store.select(selectIsNewEventTopicInProgress);
@@ -27,6 +29,15 @@ export class ViewCardComponent {
   }
 
   cancelNewTopic(){
+    this.tempOptions = [""];
     this.store.dispatch(newEventTopicIsNOTInprogress());
+  }
+
+  addAnotherOption(){
+    this.tempOptions.push("");
+  }
+
+  removeLastOption(){
+    this.tempOptions.pop();
   }
 }

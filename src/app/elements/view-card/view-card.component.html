@@ -1,16 +1,25 @@
 <div class="basic-card view-card">
     @if(isNewEventTopicInprogress$ | async){
         <!-- Form to fill in details for new topic and submit option -->
-        <form #newEventTopicForm="ngForm" (ngSubmit)="createAndSubmitNewTopic(newEventTopicForm)">
-            <label for="topicName">Topic Name</label>
+        <!-- (ngSubmit)="createAndSubmitNewTopic(newEventTopicForm)" -->
+        <form #newEventTopicForm="ngForm">
+            <label for="topicName">Topic Name</label><br>
             <input type="text" placeholder="Enter Topic Name" name="topic" ngModel>
             <br>
             <div>
-                
+                @for (optionFormElement of tempOptions; track $index) {
+                    <br>
+                    <label for="option-{{$index}}">Option {{$index+1}}</label><br>
+                    <input type="text" placeholder="Enter an Option" name="option-{{$index}}" ngModel>
+                }
+                <app-pb-button (click)="addAnotherOption()">+</app-pb-button>
+                <app-pb-button (click)="removeLastOption()">-</app-pb-button>
             </div>
             <br>
-            <button type="submit">Submit</button>
-            <button type="button" (click)="cancelNewTopic()">Cancel</button>
+
+            <br><br>
+            <app-pb-button (click)="createAndSubmitNewTopic(newEventTopicForm)">Submit</app-pb-button>
+            <app-pb-button (click)="cancelNewTopic()">Cancel</app-pb-button>
         </form>
     }
     @else {
