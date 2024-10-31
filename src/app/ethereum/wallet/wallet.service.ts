@@ -4,10 +4,9 @@ import { Summary } from '../contractProxyClasses/Summary';
 import { Result } from '../contractProxyClasses/Result';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../state/app.state';
-import { nonOwnerConnected, ownerConnected } from '../../state/account/account.actions';
+import { nonOwnerConnected, noOneConnected, ownerConnected } from '../../state/account/account.actions';
 import { Option } from '../contractProxyClasses/Option';
 import { saveSummariesList, updateSelectedEvent } from '../../state/contract/contract.actions';
-import { interval, take, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -37,28 +36,8 @@ export class WalletService {
     const {ethereum} = <any>window;
     this.ethereum = ethereum;
 
-
-
     this.getContract();
-    // this.op_endVoting();
-
-    
   }
-
-
-  // async op_(){
-  //   await this.getCurrNonce();
-
-  //   //execute all owner only ops and see
-  //   try{
-  //     const tx = await this.contract['startVotingEvent']("Topic A",["Option I", "Option II"], { nonce: this.currentNonce });
-  //     const receipt = await tx.wait();
-  //     console.log("Successfully called startVotingEvent", receipt);
-  //   }
-  //   catch(error){
-  //     console.error("Error during write op", error);
-  //   }
-  // }
 
   async op_startVotingEvent(){
     this.currentNonce = await this.provider.getTransactionCount(this.signer.getAddress());
@@ -76,26 +55,6 @@ export class WalletService {
       alert(error);
     }
   }
-
-  async op_endVoting(){
-    this.currentNonce = await this.provider.getTransactionCount(this.signer.getAddress());
-    this.pendingNonce = await this.provider.getTransactionCount(this.signer.getAddress(), 'pending');
-    console.log('Current nonce:', this.currentNonce, 'Pending: ', this.pendingNonce);
-
-    //execute all owner only ops and see
-    try{
-      const tx = await this.contract['endVoting'](0, { nonce: this.currentNonce });
-      const receipt = await tx.wait();
-      console.log("Successfully called endVoting", receipt);
-    }
-    catch(error){
-      console.error("Error during write op", error);
-      alert(error);
-    }
-  }
-
-
-
   
   async connectToWalletReadOnly() {
     this.accounts = await this.ethereum.request({method: 'eth_requestAccounts'})
@@ -106,35 +65,10 @@ export class WalletService {
     this.provider = new ethers.BrowserProvider(this.ethereum);
     await this.provider.send("eth_requestAccounts",[]);
     this.signer = this.provider.getSigner();
-    console.log("Signer:", this.signer);
-
-    
+    console.log("Signer:", this.signer); 
   }
 
   async startVotingEvent(topic:string, options:string[]){
-    // const address = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
-    // const abi = require('./abi.json');
-
-    // this.provider = new ethers.BrowserProvider(this.ethereum);
-    // await this.provider.send("eth_requestAccounts",[]);
-    // this.signer = await this.provider.getSigner();
-    // console.log("Signer:", this.signer);
-    // this.signerAddress = await this.signer.getAddress();
-
-    // this.contract = new ethers.Contract(address, abi, this.signer);
-
-    // this.ownerAddress = await this.contract.owner();
-    // console.log("owner", this.ownerAddress);
-
-    // if(this.signerAddress===this.ownerAddress){
-    //   console.log("Role: OWNER")
-    //   this.store.dispatch(ownerConnected({address: this.signerAddress}));
-    // }
-    // else{
-    //   console.log("Role: USER");
-    //   this.store.dispatch(nonOwnerConnected({address: this.signerAddress}));
-    // }
- 
     //ops
     this.currentNonce = await this.provider.getTransactionCount(await this.signer.getAddress());
     this.pendingNonce = await this.provider.getTransactionCount(await this.signer.getAddress(), 'pending');
@@ -162,29 +96,6 @@ export class WalletService {
   }
 
   async endVoting(eventId: number){
-    // const address = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
-    // const abi = require('./abi.json');
-
-    // this.provider = new ethers.BrowserProvider(this.ethereum);
-    // await this.provider.send("eth_requestAccounts",[]);
-    // this.signer = await this.provider.getSigner();
-    // console.log("Signer:", this.signer);
-    // this.signerAddress = await this.signer.getAddress();
-
-    // this.contract = new ethers.Contract(address, abi, this.signer);
-
-    // this.ownerAddress = await this.contract.owner();
-    // console.log("owner", this.ownerAddress);
-
-    // if(this.signerAddress===this.ownerAddress){
-    //   console.log("Role: OWNER")
-    //   this.store.dispatch(ownerConnected({address: this.signerAddress}));
-    // }
-    // else{
-    //   console.log("Role: USER");
-    //   this.store.dispatch(nonOwnerConnected({address: this.signerAddress}));
-    // }
-
     //ops
     this.currentNonce = await this.provider.getTransactionCount(this.signer.getAddress());
     this.pendingNonce = await this.provider.getTransactionCount(this.signer.getAddress(), 'pending');
@@ -206,29 +117,6 @@ export class WalletService {
   }
 
   async vote(eventId: number, optionId: number){
-    // const address = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
-    // const abi = require('./abi.json');
-
-    // this.provider = new ethers.BrowserProvider(this.ethereum);
-    // await this.provider.send("eth_requestAccounts",[]);
-    // this.signer = await this.provider.getSigner();
-    // console.log("Signer:", this.signer);
-    // this.signerAddress = await this.signer.getAddress();
-
-    // this.contract = new ethers.Contract(address, abi, this.signer);
-
-    // this.ownerAddress = await this.contract.owner();
-    // console.log("owner", this.ownerAddress);
-
-    // if(this.signerAddress===this.ownerAddress){
-    //   console.log("Role: OWNER")
-    //   this.store.dispatch(ownerConnected({address: this.signerAddress}));
-    // }
-    // else{
-    //   console.log("Role: USER");
-    //   this.store.dispatch(nonOwnerConnected({address: this.signerAddress}));
-    // }
-
     //ops
     this.currentNonce = await this.provider.getTransactionCount(this.signer.getAddress());
     this.pendingNonce = await this.provider.getTransactionCount(this.signer.getAddress(), 'pending');
@@ -264,37 +152,15 @@ export class WalletService {
   }
 
   async getResults(eventId: number){
-    const address = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
-    const abi = require('./abi.json');
-
-    this.provider = new ethers.BrowserProvider(this.ethereum);
-    await this.provider.send("eth_requestAccounts",[]);
-    this.signer = await this.provider.getSigner();
-    console.log("Signer:", this.signer);
-    this.signerAddress = await this.signer.getAddress();
-
-    this.contract = new ethers.Contract(address, abi, this.signer);
-
-    this.ownerAddress = await this.contract.owner();
-    console.log("owner", this.ownerAddress);
-
-    if(this.signerAddress===this.ownerAddress){
-      console.log("Role: OWNER")
-      this.store.dispatch(ownerConnected({address: this.signerAddress}));
-    }
-    else{
-      console.log("Role: USER");
-      this.store.dispatch(nonOwnerConnected({address: this.signerAddress}));
-    }
-
     //ops
-    this.currentNonce = await this.provider.getTransactionCount(this.signer.getAddress());
-    this.pendingNonce = await this.provider.getTransactionCount(this.signer.getAddress(), 'pending');
-    console.log('Current nonce:', this.currentNonce, 'Pending: ', this.pendingNonce);
+    // this.currentNonce = await this.provider.getTransactionCount(this.signer.getAddress());
+    // this.pendingNonce = await this.provider.getTransactionCount(this.signer.getAddress(), 'pending');
+    // console.log('Current nonce:', this.currentNonce, 'Pending: ', this.pendingNonce);
 
     //execute all owner only ops and see
     try{
-      const result:Result = await this.contract['getResults'](1, { nonce: this.currentNonce });
+      // , { nonce: this.currentNonce }
+      const result:Result = await this.contract['getResults'](eventId);
       // const receipt = await tx.wait();
       console.log(`Successfully called getResults: {winnerName: ${result.winnerName}, winnerVoteCount: ${result.winnerVoteCount} } = `);
       return result;
@@ -308,35 +174,12 @@ export class WalletService {
   }
 
   async isOwner(){
-    const address = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
-    const abi = require('./abi.json');
-
-    this.provider = new ethers.BrowserProvider(this.ethereum);
-    await this.provider.send("eth_requestAccounts",[]);
-    this.signer = await this.provider.getSigner();
-    console.log("Signer:", this.signer);
-    this.signerAddress = await this.signer.getAddress();
-
-    this.contract = new ethers.Contract(address, abi, this.signer);
-
-    this.ownerAddress = await this.contract.owner();
-    console.log("owner", this.ownerAddress);
-
-    if(this.signerAddress===this.ownerAddress){
-      console.log("Role: OWNER")
-      this.store.dispatch(ownerConnected({address: this.signerAddress}));
-    }
-    else{
-      console.log("Role: USER");
-      this.store.dispatch(nonOwnerConnected({address: this.signerAddress}));
-    }
-
     //ops
 
     /**isOwner */
-    this.currentNonce = await this.provider.getTransactionCount(this.signer.getAddress());
-    this.pendingNonce = await this.provider.getTransactionCount(this.signer.getAddress(), 'pending');
-    console.log('Current nonce:', this.currentNonce, 'Pending: ', this.pendingNonce);
+    // this.currentNonce = await this.provider.getTransactionCount(this.signer.getAddress());
+    // this.pendingNonce = await this.provider.getTransactionCount(this.signer.getAddress(), 'pending');
+    // console.log('Current nonce:', this.currentNonce, 'Pending: ', this.pendingNonce);
 
     //execute all owner only ops and see
     try{ 
@@ -354,37 +197,15 @@ export class WalletService {
   }
 
   async getOptions(eventId: number){
-    const address = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
-    const abi = require('./abi.json');
-
-    this.provider = new ethers.BrowserProvider(this.ethereum);
-    await this.provider.send("eth_requestAccounts",[]);
-    this.signer = await this.provider.getSigner();
-    console.log("Signer:", this.signer);
-    this.signerAddress = await this.signer.getAddress();
-
-    this.contract = new ethers.Contract(address, abi, this.signer);
-
-    this.ownerAddress = await this.contract.owner();
-    console.log("owner", this.ownerAddress);
-
-    if(this.signerAddress===this.ownerAddress){
-      console.log("Role: OWNER")
-      this.store.dispatch(ownerConnected({address: this.signerAddress}));
-    }
-    else{
-      console.log("Role: USER");
-      this.store.dispatch(nonOwnerConnected({address: this.signerAddress}));
-    }
-
     //ops
-    this.currentNonce = await this.provider.getTransactionCount(this.signer.getAddress());
-    this.pendingNonce = await this.provider.getTransactionCount(this.signer.getAddress(), 'pending');
-    console.log('Current nonce:', this.currentNonce, 'Pending: ', this.pendingNonce);
+    // this.currentNonce = await this.provider.getTransactionCount(this.signer.getAddress());
+    // this.pendingNonce = await this.provider.getTransactionCount(this.signer.getAddress(), 'pending');
+    // console.log('Current nonce:', this.currentNonce, 'Pending: ', this.pendingNonce);
 
     //execute all owner only ops and see
     try{ 
-      const tx:Option[] = await this.contract['getOptions'](eventId, { nonce: this.currentNonce });
+      // , { nonce: this.currentNonce }
+      const tx:Option[] = await this.contract['getOptions'](eventId);
       // const receipt = await tx.wait();
       console.log("Successfully called getOptions", tx[0], tx[1]);
       return tx;
@@ -398,50 +219,23 @@ export class WalletService {
   }
 
   async getSummaries(): Promise<Summary[]>{
-    // const address = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
-    // const abi = require('./abi.json');
-
-    // this.provider = new ethers.BrowserProvider(this.ethereum);
-    // await this.provider.send("eth_requestAccounts",[]);
-    // this.signer = await this.provider.getSigner();
-    // console.log("Signer:", this.signer);
-    // this.signerAddress = await this.signer.getAddress();
-
-    // this.contract = new ethers.Contract(address, abi, this.signer);
-
-    // this.ownerAddress = await this.contract.owner();
-    // console.log("owner", this.ownerAddress);
-
-    // if(this.signerAddress===this.ownerAddress){
-    //   console.log("Role: OWNER")
-    //   this.store.dispatch(ownerConnected({address: this.signerAddress}));
-    // }
-    // else{
-    //   console.log("Role: USER");
-    //   this.store.dispatch(nonOwnerConnected({address: this.signerAddress}));
-    // }
-
     //ops
-    this.currentNonce = await this.provider.getTransactionCount(this.signer.getAddress());
-    this.pendingNonce = await this.provider.getTransactionCount(this.signer.getAddress(), 'pending');
-    console.log('Current nonce:', this.currentNonce, 'Pending: ', this.pendingNonce);
+    if(this.signer!=null){
+      this.currentNonce = await this.provider.getTransactionCount(this.signer.getAddress());
+      this.pendingNonce = await this.provider.getTransactionCount(this.signer.getAddress(), 'pending');
+      console.log('Current nonce:', this.currentNonce, 'Pending: ', this.pendingNonce);
+    }
+
 
     //execute all owner only ops and see
     try{ 
-
-      const summaries: Summary[] = await this.contract['votingEventsSummary']({ nonce: this.currentNonce });
+      // { nonce: this.currentNonce }
+      const summaries: Summary[] = await this.contract['votingEventsSummary']();
       // const receipt = await tx.wait();
       console.log("Successfully called votingEventsSummary", summaries);
       for(let summary of summaries){
         console.log(summary);
       }
-      // console.log("Successfully called summary[0].topic: ", summaries[0].topic);
-      // console.log("Successfully called summary[1].topic: ", summaries[1].topic);
-      // console.log("Successfully called summary[2].topic: ", summaries[2].topic);
-      // console.log("Successfully called summary[0].options[1]", summaries[0].options[1]);
-      // console.log("Successfully called summary[0].options.length", summaries[0].options.length);
-
-
       return summaries;
     }
     catch(error){
@@ -455,38 +249,15 @@ export class WalletService {
 
 
   async getSummary(eventId: number): Promise<Summary|null>{
-    // const address = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
-    // const abi = require('./abi.json');
-
-    // this.provider = new ethers.BrowserProvider(this.ethereum);
-    // await this.provider.send("eth_requestAccounts",[]);
-    // this.signer = await this.provider.getSigner();
-    // console.log("Signer:", this.signer);
-    // this.signerAddress = await this.signer.getAddress();
-
-    // this.contract = new ethers.Contract(address, abi, this.signer);
-
-    // this.ownerAddress = await this.contract.owner();
-    // console.log("owner", this.ownerAddress);
-
-    // if(this.signerAddress===this.ownerAddress){
-    //   console.log("Role: OWNER")
-    //   this.store.dispatch(ownerConnected({address: this.signerAddress}));
-    // }
-    // else{
-    //   console.log("Role: USER");
-    //   this.store.dispatch(nonOwnerConnected({address: this.signerAddress}));
-    // }
-
     //ops
-    this.currentNonce = await this.provider.getTransactionCount(this.signer.getAddress());
-    this.pendingNonce = await this.provider.getTransactionCount(this.signer.getAddress(), 'pending');
-    console.log('Current nonce:', this.currentNonce, 'Pending: ', this.pendingNonce);
+    // this.currentNonce = await this.provider.getTransactionCount(this.signer.getAddress());
+    // this.pendingNonce = await this.provider.getTransactionCount(this.signer.getAddress(), 'pending');
+    // console.log('Current nonce:', this.currentNonce, 'Pending: ', this.pendingNonce);
 
     //execute all owner only ops and see
     try{ 
-
-      const summary: Summary = await this.contract['getEventSummary'](eventId, { nonce: this.currentNonce });
+      // , { nonce: this.currentNonce }
+      const summary: Summary = await this.contract['getEventSummary'](eventId);
       // const receipt = await tx.wait();
       console.log("Successfully called getEventSummary", summary);
 
@@ -516,25 +287,40 @@ export class WalletService {
       console.log(this.provider);
       console.error('Ethereum provider not found');
       alert("Please install Metamask or use a Wallet enabled browser!");
+      this.signer = null;
+      this.signerAddress = null;
+    }
+    else {
+      // Connect to the MetaMask EIP-1193 object. This is a standard
+      // protocol that allows Ethers access to make all read-only
+      // requests through MetaMask.
+      this.provider = new ethers.BrowserProvider(this.ethereum);
+      // await this.provider.send("eth_requestAccounts",[]);
+      this.signer = await this.provider.getSigner();
+      console.log("Signer:", this.signer);
+      this.signerAddress = await this.signer.getAddress();
     }
 
-    // Connect to the MetaMask EIP-1193 object. This is a standard
-    // protocol that allows Ethers access to make all read-only
-    // requests through MetaMask.
-    this.provider = new ethers.BrowserProvider(this.ethereum);
-    // await this.provider.send("eth_requestAccounts",[]);
-    this.signer = await this.provider.getSigner();
-    console.log("Signer:", this.signer);
-    this.signerAddress = await this.signer.getAddress();
+    if(this.signer){
+      this.contract = new ethers.Contract(address, abi, this.signer);
+      this.ownerAddress = await this.contract.owner();
+      console.log("owner", this.ownerAddress);
+    }
+    else {
+      this.contract = new ethers.Contract(address, abi, this.provider);
+      this.ownerAddress = "";
+    }
+    
 
-    this.contract = new ethers.Contract(address, abi, this.signer);
 
-    this.ownerAddress = await this.contract.owner();
-    console.log("owner", this.ownerAddress);
 
     if(this.signerAddress===this.ownerAddress){
       console.log("Role: OWNER")
       this.store.dispatch(ownerConnected({address: this.signerAddress}));
+    }
+    else if(this.signerAddress==null){
+      console.log("Role: GUEST");
+      this.store.dispatch(noOneConnected());
     }
     else{
       console.log("Role: USER");
