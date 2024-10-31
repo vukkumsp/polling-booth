@@ -39,23 +39,6 @@ export class WalletService {
     this.getContract();
   }
 
-  async op_startVotingEvent(){
-    this.currentNonce = await this.provider.getTransactionCount(this.signer.getAddress());
-    this.pendingNonce = await this.provider.getTransactionCount(this.signer.getAddress(), 'pending');
-    console.log('Current nonce:', this.currentNonce, 'Pending: ', this.pendingNonce);
-
-    //execute all owner only ops and see
-    try{
-      const tx = await this.contract['startVotingEvent']("Topic A",["Option I", "Option II"], { nonce: this.currentNonce });
-      const receipt = await tx.wait();
-      console.log("Successfully called startVotingEvent", receipt);
-    }
-    catch(error){
-      console.error("Error during write op", error);
-      alert(error);
-    }
-  }
-  
   async connectToWalletReadOnly() {
     this.accounts = await this.ethereum.request({method: 'eth_requestAccounts'})
     console.log("Connected Account:", this.accounts[0])
