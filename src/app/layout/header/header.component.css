@@ -13,3 +13,11 @@
     margin-right: 10px;
     /* width: 20%; */
 }
+
+svg {
+    width:15px;
+    height:15px;
+    stroke-width:10;
+    stroke:black;
+    fill:transparent;
+  }

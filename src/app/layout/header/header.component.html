@@ -1,17 +1,18 @@
 
 <span id="Title">
-    <h3 (click)="goToHome()" class="clickable-element">Polling Booth</h3>
+    <h3 (click)="goToHome()" class="clickable-element">📊 Polling Booth </h3>
 </span>
+<!-- 🗳️ 📊 -->
 
 <span>
     <div id="AccountAddress">
         @if((accountRole$ | async)!=null && (accountRole$ | async)=="GUEST"){
-            <h5><app-pb-button (click)="connectToWallet()" value="Connect to Wallet"/></h5>
+            <h5><app-pb-button (click)="connectToWallet()" value="👤 Connect to Wallet"/></h5>
         }
         @else {
             <h5>
                 {{accountAddress$ | async | addressFormatter}}
-                <app-pb-button value="Change Account"/>
+                <app-pb-button value="👤 Change Account"/>
             </h5>
             
         }
