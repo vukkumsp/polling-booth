@@ -8,6 +8,7 @@ import { AccountRole } from '../../state/account/account.state';
 import { AddressFormatterPipe } from "../../elements/address-formatter-pipe/address-formatter.pipe";
 import { PbButtonComponent } from "../../elements/pb-button/pb-button.component";
 import { newEventTopicIsNOTInprogress, unSelectedEvent, unSelectedEventId } from '../../state/contract/contract.actions';
+import { WalletService } from '../../ethereum/wallet/wallet.service';
 
 @Component({
   selector: 'app-header',
@@ -20,7 +21,7 @@ export class HeaderComponent {
   accountRole$: Observable<AccountRole>;
   accountAddress$: Observable<string>;
 
-  constructor(private store: Store<AppState>){
+  constructor(private store: Store<AppState>, private wallet: WalletService){
     this.accountRole$ = this.store.select(selectAccountRole);
     this.accountAddress$ = this.store.select(selectAccountAddress);
   }
@@ -34,5 +35,9 @@ export class HeaderComponent {
     this.store.dispatch(newEventTopicIsNOTInprogress());
     this.store.dispatch(unSelectedEvent());
     this.store.dispatch(unSelectedEventId());
+  }
+
+  connectToWallet(){
+    this.wallet.getContract();
   }
 }
