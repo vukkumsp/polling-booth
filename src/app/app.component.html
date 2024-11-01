@@ -1,15 +1,21 @@
-@if(windowWidth > 500){
+@if(windowWidth > 499){
   <app-desktop></app-desktop> 
 }
 @else {
   <app-mobile></app-mobile>
 }
-<p class="footer">
-  <a href="https://www.linkedin.com/in/vukkumsp" target="_blank" rel="noopener noreferrer">
-    <img class="linked-logo" src="assets/In-White-72@2x.png"/>
-  </a>
-  <a href="https://github.com/vukkumsp" target="_blank" rel="noopener noreferrer">
-    <img class="github-logo" src="assets/github-mark-white.png"/>
-  </a>
-  vukkumsp
-</p>
+<div class="footer">
+  <span class="left-footer">
+    <small><small>powered by</small> Angular 18, NgRx</small>
+  </span>
+  <span class="right-footer">
+    <small>
+    <a href="https://www.linkedin.com/in/vukkumsp" target="_blank" rel="noopener noreferrer">
+      <img class="linked-logo" src="assets/In-White-72@2x.png"/>
+    </a>
+    <a href="https://github.com/vukkumsp" target="_blank" rel="noopener noreferrer">
+      <img class="github-logo" src="assets/github-mark-white.png"/>
+    </a>
+    vukkumsp</small>
+  </span>
+</div>

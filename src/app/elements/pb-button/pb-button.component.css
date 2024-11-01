@@ -11,7 +11,7 @@
     margin: 2px;
 }
 
-.pb-button:hover{
+.pb-button:hover, .pb-button:active, .pb-button:focus{
     color: black;
     background-color: white;
     border-color: white;

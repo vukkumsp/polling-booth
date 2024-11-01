@@ -21,8 +21,15 @@
 
     @media (max-width: 500px) {
         float: none;
-        align-items: center;
+        /* align-items: center; */
         text-align: center;
         margin: none;
+    }
+}
+
+.mobile-only-menu-btn {
+    float: left;
+    @media (min-width: 500px) {
+        visibility: hidden;
     }
 }
