@@ -28,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: dist-files
-          path: ./dist/browser
+          path: ./dist
   deploy-ghpages:
     runs-on: ubuntu-latest
     needs: npm-build
@@ -47,4 +47,4 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
       - name: Deploy to Github Pages
-        run: angular-cli-ghpages -d ./dist/ --repo="https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/vukkumsp/polling-booth.git" --no-silent
+        run: angular-cli-ghpages -d ./dist/polling-booth/ --repo="https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/vukkumsp/polling-booth.git" --no-silent
