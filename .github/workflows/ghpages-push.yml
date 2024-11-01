@@ -28,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: dist-files
-          path: ./dist/browser
+          path: ./dist
   deploy-ghpages:
     runs-on: ubuntu-latest
     needs: npm-build
@@ -41,7 +41,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: dist-files
-          path: ./browser
+          path: ./dist/browser
       - name: Set up Git for deployment
         run: |
           git config user.name "GitHub Actions"
