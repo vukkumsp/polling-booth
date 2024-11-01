@@ -1,0 +1,32 @@
+
+https://www.npmjs.com/package/angular-cli-ghpages
+
+ng add angular-cli-ghpages
+
+ng deploy --base-href=/polling-booth/
+angular-cli-ghpages -d dist/polling-booth/ --no-silent
+
+Access:
+https://vukkumsp.github.io/polling-booth
+
+
+-
+NOTE!!!! For this Angular Version, steps are different as ./dist structure is different.
+         Angular generates all client required code inside ./dist/<repo-name>/browser
+            So, we need to use this folder as deployment source so -d ./dist/polling-booth/browser
+         But before this, we need to update the base href of index.html inside ./dist/<repo-name>/browser
+            to point to our actual base url (https://vukkumsp.github.io/polling-booth/) so, it will be able to relate all paths from there.
+
+Step 1: Install helping dependency to push to ghpages
+    `npm install -g angular-cli-ghpages`
+
+Step 2: Build production ready code
+    `npm run build`
+
+Step 3: Update ./dist/polling-booth/browser/index.html
+    From <base href="/">
+    To <base href="https://vukkumsp.github.io/polling-booth/">
+
+Step 4: Deploy 
+    `angular-cli-ghpages -d dist/polling-booth/browser --no-silent`
+
