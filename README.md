@@ -1,6 +1,7 @@
 # Polling Booth
 
 ![NPM Build Deploy](https://github.com/vukkumsp/polling-booth/actions/workflows/ghpages-push.yml/badge.svg)
+[![pages-build-deployment](https://github.com/vukkumsp/polling-booth/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/vukkumsp/polling-booth/actions/workflows/pages/pages-build-deployment)
 
 ## Why this project is created ?
 
