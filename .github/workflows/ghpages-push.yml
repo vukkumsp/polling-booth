@@ -41,10 +41,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: dist-files
-          path: ./dist/browser
+          path: ./browser
       - name: Set up Git for deployment
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
       - name: Deploy to Github Pages
-        run: angular-cli-ghpages -d ./dist/polling-booth/ --repo="https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/vukkumsp/polling-booth.git" --no-silent
+        run: angular-cli-ghpages -d ./browser/ --repo="https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/vukkumsp/polling-booth.git" --no-silent
