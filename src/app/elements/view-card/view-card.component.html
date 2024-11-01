@@ -79,9 +79,37 @@
 
     @else {
         <h1>Welcome to Polling Booth</h1>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+        <hr>
+        <h3>Why this project is created ?</h3>
+        <p>It is to demonstrate the use of Blockchain to track voting or polling on topics by users.</p>
 
-        <h2>Lorem Ipsum</h2>
-        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+        <h3>Development</h3>
+        <p>
+           It is designed to work with a contract deployed on sepolia testnet. 
+           But, if we clone/download the repo we can change the contract and 
+           endpoint address to point it to your local blockchain or any other blockchain.
+           <br> The Blockchain contract required to work with this dapp is 
+           at: 
+           <a href="https://github.com/vukkumsp/polling-booth-smart-contract">
+            https://github.com/vukkumsp/polling-booth-smart-contract
+           </a>
+        </p>
+
+        <h3>Distribution</h3>
+        <p>
+            It is available at: 
+            <a href="https://vukkumsp.github.io/polling-booth">
+                https://vukkumsp.github.io/polling-booth
+            </a>
+        </p>
+
+        <h3>How to use the App ?</h3>
+        <p>
+            <b>OWNER:</b>   As of now, only the owner of the contract can create or End Voting Events and everyone else can only vote for the same. To become Owner, you need to deploy the polling-booth-smart-contract onto your prefered blockchain network and point this app to that network. Then the account used to deploy the polling-booth-smart-contract becomes the Owner. 
+            <br><br>
+            <b>USER:</b>    All non owner accounts on network are treated as role User. They can vote on active voting events created by Owner. 
+            <br><br>
+            <b>GUEST: </b>  Any non connected to wallet scenarios are treated as role Guest, they can only view the details of polling-booth but can't do any write transactions.
+        </p>
     }
 </div>
