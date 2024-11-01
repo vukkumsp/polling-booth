@@ -3,18 +3,19 @@
     <!-- Form to fill in details for new topic and submit option -->
     <!-- (ngSubmit)="createAndSubmitNewTopic(newEventTopicForm)" -->
     <form #newEventTopicForm="ngForm">
-        <label for="topicName">Topic Name</label><br>
+        <h1><label for="topicName">Topic Name</label></h1>
         <input type="text" class="text-box-topic" placeholder="Enter Topic Name" name="topic" ngModel>
-        <br>
         <div>
             @for (optionFormElement of tempOptions; track $index) {
-            <br>
             <div>
-                <label for="option-{{$index}}">Option {{$index+1}}</label><br>
-                <input type="text" class="text-box-option" placeholder="Enter an Option" name="option-{{$index}}"
-                    ngModel>
+                <h3><label for="option-{{$index}}">Option {{$index+1}}</label></h3>
+                <input 
+                    type="text" 
+                    class="text-box-option" 
+                    placeholder="Enter an Option" 
+                    name="option-{{$index}}"
+                    ngModel/>
             </div>
-
             }
             <br><br>
             <div class="add-remove-button">

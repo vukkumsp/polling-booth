@@ -19,6 +19,9 @@ app-desktop, app-mobile {
 }
 
 .linked-logo, .github-logo{
-    height: 10px;
+    height: 13px;
     padding: 1px;
+    padding-bottom: 0px;
+    margin: 1px;
+    /* margin-top: 5px; */
 }
