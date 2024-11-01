@@ -257,6 +257,13 @@ export class WalletService {
 
   async getContract(){
     const address = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+    const defaultProviderEndpoint = "http://localhost:8545";
+    // const address = process.env['CONTRACT_ADDRESS'];
+    // const defaultProviderEndpoint = process.env['PROVIDER_ENDPOINT'];
+    const localAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+
+    console.log(`fetched address (${address}) and endpoint (${defaultProviderEndpoint})`);
+
     const abi = require('./abi.json');
 
     if (!this.ethereum) {
@@ -266,7 +273,7 @@ export class WalletService {
       // so they only have read-only access
       console.log("MetaMask not installed; using read-only defaults")
       // this.provider = ethers.getDefaultProvider();
-      this.provider = new ethers.JsonRpcProvider('http://localhost:8545');
+      this.provider = new ethers.JsonRpcProvider(defaultProviderEndpoint);
       console.log(this.provider);
       console.error('Ethereum provider not found');
       alert("Please install Metamask or use a Wallet enabled browser!");
@@ -285,12 +292,12 @@ export class WalletService {
     }
 
     if(this.signer){
-      this.contract = new ethers.Contract(address, abi, this.signer);
+      this.contract = new ethers.Contract(address?address:localAddress, abi, this.signer);
       this.ownerAddress = await this.contract.owner();
       console.log("owner", this.ownerAddress);
     }
     else {
-      this.contract = new ethers.Contract(address, abi, this.provider);
+      this.contract = new ethers.Contract(address?address:localAddress, abi, this.provider);
       this.ownerAddress = "";
     }
     

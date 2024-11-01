@@ -3,6 +3,12 @@
     float: left;
     /* width: 70%; */
     margin-left: 10px;
+    @media (max-width: 500px) {
+        float: none;
+        align-items: center;
+        text-align: center;
+        margin: none;
+    }
 }
 
 #AccountAddress, #AccountRole {
@@ -12,12 +18,11 @@
     /* margin-left: 10px; */
     margin-right: 10px;
     /* width: 20%; */
-}
 
-svg {
-    width:15px;
-    height:15px;
-    stroke-width:10;
-    stroke:black;
-    fill:transparent;
-  }
+    @media (max-width: 500px) {
+        float: none;
+        align-items: center;
+        text-align: center;
+        margin: none;
+    }
+}

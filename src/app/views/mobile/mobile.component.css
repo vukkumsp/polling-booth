@@ -1,0 +1,40 @@
+.container {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    /* grid-template-rows: 1fr 8.5fr; */
+    grid-template-areas: 
+        "header header header header"
+        "content content content content";
+    overflow-y: none;
+}
+
+
+.header {
+    grid-area: header;
+    /* background-color: white; */
+    /* border-radius:5px; */
+    overflow-y: none;
+
+    /* background-color: white; */
+    /* cursor: pointer; */
+    /* border-radius:10px;
+    border-width: 1px;
+    border-style: dashed;
+    margin: 5px; */
+}
+
+.sidebar {
+    grid-area: sidebar;
+    /* background-color: greenyellow; */
+    height: 87vh;
+    overflow-y: auto;
+    scrollbar-color: white black;
+}
+
+.content {
+    grid-area: content;
+    /* background-color: aquamarine; */
+    min-height: 87vh; 
+    max-height: 200vh;
+    overflow-y: auto;
+}
