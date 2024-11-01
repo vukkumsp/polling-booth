@@ -18,12 +18,14 @@ It is available at: https://vukkumsp.github.io/polling-booth
 
 ## How to use the App ?
 
-OWNER:
+<b>OWNER:</b>
 As of now, only the owner of the contract can create or End Voting Events and everyone else can only vote for the same.
 To become Owner, you need to deploy the polling-booth-smart-contract onto your prefered blockchain network and point this app to that network. Then the account used to deploy the polling-booth-smart-contract becomes the Owner.
-USER:
+
+<b>USER:</b>
 All non owner accounts on network are treated as role User. They can vote on active voting events created by Owner.
-GUEST:
+
+<b>GUEST:</b>
 Any non connected to wallet scenarios are treated as role Guest, they can only view the details of polling-booth but can't do any write transactions.
 
 ## Resources & Knowledge
