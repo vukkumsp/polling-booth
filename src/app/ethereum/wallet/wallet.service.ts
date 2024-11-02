@@ -6,7 +6,10 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../state/app.state';
 import { nonOwnerConnected, noOneConnected, ownerConnected } from '../../state/account/account.actions';
 import { Option } from '../contractProxyClasses/Option';
-import { saveSummariesList, updateSelectedEvent } from '../../state/contract/contract.actions';
+import { saveSummariesList, selectLocalNetwork, updateSelectedEvent } from '../../state/contract/contract.actions';
+
+import { WalletConfig } from '../../../../wallet.config'; 
+import { selectNetwork } from '../../state/contract/contract.selector';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +39,11 @@ export class WalletService {
     const {ethereum} = <any>window;
     this.ethereum = ethereum;
 
-    this.getContract();
+    this.store.select(selectNetwork).subscribe(
+      (selectedNetwork)=>{
+        this.getContract(selectedNetwork);
+      }
+    );
   }
 
   async connectToWalletReadOnly() {
@@ -255,12 +262,16 @@ export class WalletService {
   }
 
 
-  async getContract(){
-    const address = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
-    const defaultProviderEndpoint = "http://localhost:8545";
+  async getContract(network: string){
+
+    const address = WalletConfig[network].contractAddress;
+    const defaultProviderEndpoint = WalletConfig[network].providerEndpoint;
+    const localAddress = WalletConfig["local"].contractAddress;
+    // const defaultProviderEndpoint = "http://localhost:8545";
+
     // const address = process.env['CONTRACT_ADDRESS'];
     // const defaultProviderEndpoint = process.env['PROVIDER_ENDPOINT'];
-    const localAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+    // const localAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
     console.log(`fetched address (${address}) and endpoint (${defaultProviderEndpoint})`);
 

@@ -7,8 +7,9 @@ import { AsyncPipe } from '@angular/common';
 import { AccountRole } from '../../state/account/account.state';
 import { AddressFormatterPipe } from "../../elements/address-formatter-pipe/address-formatter.pipe";
 import { PbButtonComponent } from "../../elements/pb-button/pb-button.component";
-import { newEventTopicIsNOTInprogress, unSelectedEvent, unSelectedEventId } from '../../state/contract/contract.actions';
+import { newEventTopicIsNOTInprogress, selectLocalNetwork, selectSepoliaNetwork, unSelectedEvent, unSelectedEventId } from '../../state/contract/contract.actions';
 import { WalletService } from '../../ethereum/wallet/wallet.service';
+import { selectNetwork } from '../../state/contract/contract.selector';
 
 @Component({
   selector: 'app-header',
@@ -37,7 +38,22 @@ export class HeaderComponent {
     this.store.dispatch(unSelectedEventId());
   }
 
+  getSelectedNetwork($event: any){
+    console.log("Selected n/w : "+$event.target.value);
+    switch($event.target.value){
+      case "sepolia": this.store.dispatch(selectSepoliaNetwork());
+        break;
+      case "local":
+      default: this.store.dispatch(selectLocalNetwork());
+    }
+    
+  }
+
   connectToWallet(){
-    this.wallet.getContract();
+    this.store.select(selectNetwork).subscribe(
+      (selectedNetwork)=>{
+        this.wallet.getContract(selectedNetwork);
+      }
+    );
   }
 }

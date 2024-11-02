@@ -5,6 +5,9 @@ import { MobileComponent } from "./views/mobile/mobile.component";
 import { AsyncPipe, DOCUMENT } from '@angular/common';
 import { WalletService } from './ethereum/wallet/wallet.service';
 import { Observable, of } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState } from './state/app.state';
+import { selectNetwork } from './state/contract/contract.selector';
 
 @Component({
   selector: 'app-root',
@@ -17,9 +20,13 @@ import { Observable, of } from 'rxjs';
 export class AppComponent {
   title = 'polling-booth';
   windowWidth: number = window.innerWidth;
-  constructor (private wallet: WalletService){
+  constructor (private store: Store<AppState>, private wallet: WalletService){
     // To trigger wallet connect on start up of app
-    this.wallet.getContract();
+    this.store.select(selectNetwork).subscribe(
+      (selectedNetwork)=>{
+        this.wallet.getContract(selectedNetwork);
+      }
+    );
   }
 
   //Listens to windowWidth

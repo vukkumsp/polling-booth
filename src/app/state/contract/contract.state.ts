@@ -7,6 +7,7 @@ export interface ContractState {
     eventSummaries: Summary[];
     selectedEventSummary: Summary | null;
     selectedEventId: number;
+    network: string;
 }
 
 export const initialContractState: ContractState = {
@@ -14,5 +15,6 @@ export const initialContractState: ContractState = {
     newEventTopicInprogress: false,
     eventSummaries: [],
     selectedEventSummary: null,
-    selectedEventId: -1
+    selectedEventId: -1,
+    network: "sepolia"
 }

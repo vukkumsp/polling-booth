@@ -6,6 +6,9 @@
 /out-tsc
 /bazel-out
 
+# Smart contract api key files
+wallet.config.ts
+
 # Node
 /node_modules
 npm-debug.log

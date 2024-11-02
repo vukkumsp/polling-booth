@@ -32,3 +32,11 @@ export const updateSelectedEventId = createAction(
 export const unSelectedEventId = createAction(
     '[Selected EventId] unselected'
 )
+
+export const selectLocalNetwork = createAction(
+    '[Selected network] local'
+)
+
+export const selectSepoliaNetwork = createAction(
+    '[Selected network] sepolia'
+)

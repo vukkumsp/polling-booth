@@ -23,3 +23,8 @@ export const selectSelectedEventId = createSelector(
     selectContractState,
     (state: ContractState) => state.selectedEventId
 )
+
+export const selectNetwork = createSelector(
+    selectContractState,
+    (state: ContractState) => state.network
+)

@@ -17,7 +17,13 @@
         }
     </div>
     <app-pb-button class="mobile-only-menu-btn" value="◁☰"/>
+    
     <div id="AccountRole">
         <h5>{{accountRole$ | async}}</h5>
+        <label for="networks">Choose a Network:</label>
+        <select name="networks" id="networks" (change)="getSelectedNetwork($event)">
+            <option value="local">local</option>
+            <option value="sepolia" selected>sepolia</option>
+        </select>
     </div>
 </span>
