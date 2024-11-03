@@ -27,6 +27,9 @@ Step 3: Update ./dist/polling-booth/browser/index.html
     From <base href="/">
     To <base href="https://vukkumsp.github.io/polling-booth/">
 
+    Run below command to do this step in linux env:
+    `sed -i 's|<base href="/">|<base href="https://vukkumsp.github.io/polling-booth/">|g' ./dist/polling-booth/browser/index.html`
+
 Step 4: Deploy 
     `angular-cli-ghpages -d dist/polling-booth/browser --no-silent`
 
