@@ -23,12 +23,22 @@
     margin: 5px; */
 }
 
-.sidebar {
-    grid-area: sidebar;
-    /* background-color: greenyellow; */
-    height: 87vh;
+.toggled-sidebar {
+    position: absolute;
+    z-index: 9999;
+    /* grid-area: sidebar; */
+    background-color: black;
+    height: 100vh;
     overflow-y: auto;
     scrollbar-color: white black;
+}
+.toggle-left-panel{
+    padding-top: 30px;
+}
+.close-toggled-sidebar{
+    /* position: relative; */
+    float: right;
+    padding: 7px;
 }
 
 .content {

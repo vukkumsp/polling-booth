@@ -2,13 +2,17 @@
  <!-- <blockquote>
     Mobile View
  </blockquote> -->
- <div class="container">
+<div class="toggled-sidebar" [hidden]="!(showSidebar$ | async)">
+    <app-pb-button class="close-toggled-sidebar" (click)="showSidebar()" value="❌" />
+    <div class="toggle-left-panel">
+        <app-left-panel></app-left-panel>
+    </div>
+</div>
+
+<div class="container" [ngStyle]="((showSidebar$|async)?opacity20:opacity100)">
    <div class="basic-card header">
        <app-header></app-header>
    </div>
-   <!-- <div class="sidebar">
-       <app-left-panel></app-left-panel>
-   </div> -->
    <div class="content">
        <app-right-panel></app-right-panel>
    </div>

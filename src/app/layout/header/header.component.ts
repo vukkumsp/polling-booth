@@ -10,6 +10,7 @@ import { PbButtonComponent } from "../../elements/pb-button/pb-button.component"
 import { newEventTopicIsNOTInprogress, selectLocalNetwork, selectSepoliaNetwork, unSelectedEvent, unSelectedEventId } from '../../state/contract/contract.actions';
 import { WalletService } from '../../ethereum/wallet/wallet.service';
 import { selectNetwork } from '../../state/contract/contract.selector';
+import { toggleSidebar } from '../../state/mobileview/mobileview.actions';
 
 @Component({
   selector: 'app-header',
@@ -47,6 +48,11 @@ export class HeaderComponent {
       default: this.store.dispatch(selectLocalNetwork());
     }
     
+  }
+
+  showSidebar(){
+    console.log("showSidebar from header");
+    this.store.dispatch(toggleSidebar());
   }
 
   connectToWallet(){

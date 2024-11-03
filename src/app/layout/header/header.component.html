@@ -16,7 +16,8 @@
             </h5>
         }
     </div>
-    <app-pb-button class="mobile-only-menu-btn" value="◁☰"/>
+    <!-- ◁☰ -->
+    <app-pb-button class="mobile-only-menu-btn" (click)="showSidebar()" value="🍔"/>
     
     <div id="AccountRole">
         <h5>{{accountRole$ | async}}</h5>
