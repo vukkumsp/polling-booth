@@ -79,7 +79,6 @@ export class WalletService {
     }
     catch(error){
       console.error("Error during write op", error);
-      // alert(error);
       this.handleError(error);
     }
     return false;
@@ -100,7 +99,6 @@ export class WalletService {
     }
     catch(error){
       console.error("Error during write op", error);
-      // alert(error);
       this.handleError(error);
     }
     return false;
@@ -115,7 +113,6 @@ export class WalletService {
     //execute all owner only ops and see
     try{
       const tx = await this.contract['vote'](eventId,optionId, { nonce: this.currentNonce });
-      // const receipt = await tx.wait();
       console.log("Successfully called vote", tx);
 
       //TODO: refresh event data and all summaries only to reflect in ui
@@ -135,74 +132,45 @@ export class WalletService {
     }
     catch(error){
       console.error("Error during write op", error);
-      // alert(error);
       this.handleError(error);
     }
     return false;
   }
 
   async getResults(eventId: number){
-    //ops
-    // this.currentNonce = await this.provider.getTransactionCount(this.signer.getAddress());
-    // this.pendingNonce = await this.provider.getTransactionCount(this.signer.getAddress(), 'pending');
-    // console.log('Current nonce:', this.currentNonce, 'Pending: ', this.pendingNonce);
-
-    //execute all owner only ops and see
     try{
-      // , { nonce: this.currentNonce }
       const result:Result = await this.contract['getResults'](eventId);
-      // const receipt = await tx.wait();
       console.log(`Successfully called getResults: {winnerName: ${result.winnerName}, winnerVoteCount: ${result.winnerVoteCount} } = `);
       return result;
     }
     catch(error){
       console.error("Error during write op", error);
-      // alert(error);
       this.handleError(error);
     }
     return null;
   }
 
   async isOwner(){
-    //ops
-
-    /**isOwner */
-    // this.currentNonce = await this.provider.getTransactionCount(this.signer.getAddress());
-    // this.pendingNonce = await this.provider.getTransactionCount(this.signer.getAddress(), 'pending');
-    // console.log('Current nonce:', this.currentNonce, 'Pending: ', this.pendingNonce);
-
-    //execute all owner only ops and see
     try{ 
       const ownerConnected: boolean = await this.contract['isOwner']();
-      // const receipt = await tx.wait();
       console.log("Successfully called isOwner", ownerConnected);
       return ownerConnected;
     }
     catch(error){
       console.error("Error during write op", error);
-      // alert(error);
       this.handleError(error);
     }
     return false;
   }
 
   async getOptions(eventId: number){
-    //ops
-    // this.currentNonce = await this.provider.getTransactionCount(this.signer.getAddress());
-    // this.pendingNonce = await this.provider.getTransactionCount(this.signer.getAddress(), 'pending');
-    // console.log('Current nonce:', this.currentNonce, 'Pending: ', this.pendingNonce);
-
-    //execute all owner only ops and see
     try{ 
-      // , { nonce: this.currentNonce }
       const tx:Option[] = await this.contract['getOptions'](eventId);
-      // const receipt = await tx.wait();
       console.log("Successfully called getOptions", tx[0], tx[1]);
       return tx;
     }
     catch(error){
       console.error("Error during write op", error);
-      // alert(error);
       this.handleError(error);
     }
     return [];
@@ -216,13 +184,8 @@ export class WalletService {
       console.log('Current nonce:', this.currentNonce, 'Pending: ', this.pendingNonce);
     }
 
-
-    //execute all owner only ops and see
     try{ 
-      // { nonce: this.currentNonce }
       const summaries: Summary[] = await this.contract['votingEventsSummary']();
-      // const receipt = await tx.wait();
-      console.log("Successfully called votingEventsSummary", summaries);
       for(let summary of summaries){
         console.log(summary);
       }
@@ -230,7 +193,6 @@ export class WalletService {
     }
     catch(error){
       console.error("Error during write op", error);
-      // alert(error);
       this.handleError(error);
     }
     const summaries: Summary[] = [];
@@ -239,23 +201,12 @@ export class WalletService {
 
 
   async getSummary(eventId: number): Promise<Summary|null>{
-    //ops
-    // this.currentNonce = await this.provider.getTransactionCount(this.signer.getAddress());
-    // this.pendingNonce = await this.provider.getTransactionCount(this.signer.getAddress(), 'pending');
-    // console.log('Current nonce:', this.currentNonce, 'Pending: ', this.pendingNonce);
-
-    //execute all owner only ops and see
     try{ 
-      // , { nonce: this.currentNonce }
       const summary: Summary = await this.contract['getEventSummary'](eventId);
-      // const receipt = await tx.wait();
-      console.log("Successfully called getEventSummary", summary);
-
       return summary;
     }
     catch(error){
       console.error("Error during write op", error);
-      // alert(error);
       this.handleError(error);
     }
     return null;
@@ -267,11 +218,6 @@ export class WalletService {
     const address = WalletConfig[network].contractAddress;
     const defaultProviderEndpoint = WalletConfig[network].providerEndpoint;
     const localAddress = WalletConfig["local"].contractAddress;
-    // const defaultProviderEndpoint = "http://localhost:8545";
-
-    // const address = process.env['CONTRACT_ADDRESS'];
-    // const defaultProviderEndpoint = process.env['PROVIDER_ENDPOINT'];
-    // const localAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
     console.log(`fetched address (${address}) and endpoint (${defaultProviderEndpoint})`);
 
@@ -282,8 +228,7 @@ export class WalletService {
       // which is backed by a variety of third-party services (such
       // as INFURA). They do not have private keys installed,
       // so they only have read-only access
-      console.log("MetaMask not installed; using read-only defaults")
-      // this.provider = ethers.getDefaultProvider();
+      console.log("MetaMask not installed; using read-only defaults");
       this.provider = new ethers.JsonRpcProvider(defaultProviderEndpoint);
       console.log(this.provider);
       console.error('Ethereum provider not found');
@@ -296,7 +241,6 @@ export class WalletService {
       // protocol that allows Ethers access to make all read-only
       // requests through MetaMask.
       this.provider = new ethers.BrowserProvider(this.ethereum);
-      // await this.provider.send("eth_requestAccounts",[]);
       this.signer = await this.provider.getSigner();
       console.log("Signer:", this.signer);
       this.signerAddress = await this.signer.getAddress();
@@ -311,9 +255,6 @@ export class WalletService {
       this.contract = new ethers.Contract(address?address:localAddress, abi, this.provider);
       this.ownerAddress = "";
     }
-    
-
-
 
     if(this.signerAddress===this.ownerAddress){
       console.log("Role: OWNER")
@@ -328,127 +269,9 @@ export class WalletService {
       this.store.dispatch(nonOwnerConnected({address: this.signerAddress}));
     }
 
-    // await this.startVotingEvent("Topic A", ["Option I", "Option II"])
-
     let summaries = (await this.getSummaries());
     console.log("Summaries", summaries);
     this.store.dispatch(saveSummariesList({summaries}));
-
-    //ops
-
-    /**isOwner */
-    // this.currentNonce = await this.provider.getTransactionCount(this.signer.getAddress());
-    // this.pendingNonce = await this.provider.getTransactionCount(this.signer.getAddress(), 'pending');
-    // console.log('Current nonce:', this.currentNonce, 'Pending: ', this.pendingNonce);
-
-    // //execute all owner only ops and see
-    // try{ 
-    //   const ownerConnected: boolean = await this.contract['isOwner']();
-    //   // const receipt = await tx.wait();
-    //   console.log("Successfully called isOwner", ownerConnected);
-    // }
-    // catch(error){
-    //   console.error("Error during write op", error);
-    // }
-
-    /**startVotingEvent */
-    // this.currentNonce = await this.provider.getTransactionCount(await this.signer.getAddress());
-    // this.pendingNonce = await this.provider.getTransactionCount(await this.signer.getAddress(), 'pending');
-    // console.log('Current nonce:', this.currentNonce, 'Pending: ', this.pendingNonce);
-
-    // //execute all owner only ops and see
-    // try{
-    //   const tx = await this.contract['startVotingEvent']("Topic A",["Option I", "Option II"], { nonce: this.currentNonce });
-    //   const receipt = await tx.wait();
-    //   console.log("Successfully called startVotingEvent", receipt);
-    // }
-    // catch(error){
-    //   console.error("Error during write op", error);
-    // }
-
-    /**endVoting */
-    // this.currentNonce = await this.provider.getTransactionCount(this.signer.getAddress());
-    // this.pendingNonce = await this.provider.getTransactionCount(this.signer.getAddress(), 'pending');
-    // console.log('Current nonce:', this.currentNonce, 'Pending: ', this.pendingNonce);
-
-    // //execute all owner only ops and see
-    // try{
-    //   const tx = await this.contract['endVoting'](1, { nonce: this.currentNonce });
-    //   const receipt = await tx.wait();
-    //   console.log("Successfully called endVoting", receipt);
-    // }
-    // catch(error){
-    //   console.error("Error during write op", error);
-    // }
-
-    /**** getResults */
-    // this.currentNonce = await this.provider.getTransactionCount(this.signer.getAddress());
-    // this.pendingNonce = await this.provider.getTransactionCount(this.signer.getAddress(), 'pending');
-    // console.log('Current nonce:', this.currentNonce, 'Pending: ', this.pendingNonce);
-
-    // //execute all owner only ops and see
-    // try{
-    //   const result:Result = await this.contract['getResults'](1, { nonce: this.currentNonce });
-    //   // const receipt = await tx.wait();
-    //   console.log(`Successfully called getResults: {winnerName: ${result.winnerName}, winnerVoteCount: ${result.winnerVoteCount} } = `);
-    // }
-    // catch(error){
-    //   console.error("Error during write op", error);
-    // }
-
-    /**vote */
-    // this.currentNonce = await this.provider.getTransactionCount(this.signer.getAddress());
-    // this.pendingNonce = await this.provider.getTransactionCount(this.signer.getAddress(), 'pending');
-    // console.log('Current nonce:', this.currentNonce, 'Pending: ', this.pendingNonce);
-
-    // //execute all owner only ops and see
-    // try{
-    //   const tx = await this.contract['vote'](1,1, { nonce: this.currentNonce });
-    //   // const receipt = await tx.wait();
-    //   console.log("Successfully called vote", tx);
-    // }
-    // catch(error){
-    //   console.error("Error during write op", error);
-    // }
-
-    /**getOptions */
-    // this.currentNonce = await this.provider.getTransactionCount(this.signer.getAddress());
-    // this.pendingNonce = await this.provider.getTransactionCount(this.signer.getAddress(), 'pending');
-    // console.log('Current nonce:', this.currentNonce, 'Pending: ', this.pendingNonce);
-
-    // //execute all owner only ops and see
-    // try{ 
-    //   const tx:any[] = await this.contract['getOptions'](1, { nonce: this.currentNonce });
-    //   // const receipt = await tx.wait();
-    //   console.log("Successfully called getOptions", tx[0], tx[1]);
-    // }
-    // catch(error){
-    //   console.error("Error during write op", error);
-    // }
-
-    /**votingEventsSummary */
-    // this.currentNonce = await this.provider.getTransactionCount(this.signer.getAddress());
-    // this.pendingNonce = await this.provider.getTransactionCount(this.signer.getAddress(), 'pending');
-    // console.log('Current nonce:', this.currentNonce, 'Pending: ', this.pendingNonce);
-
-    // //execute all owner only ops and see
-    // try{ 
-
-    //   const summary: Summary[] = await this.contract['votingEventsSummary']({ nonce: this.currentNonce });
-    //   // const receipt = await tx.wait();
-    //   console.log("Successfully called votingEventsSummary", summary);
-    //   for(let sum of summary){
-    //     console.log(sum);
-    //   }
-    //   // console.log("Successfully called summary[0].topic: ", summary[0].topic);
-    //   // console.log("Successfully called summary[0].options[1]", summary[0].options[1]);
-    //   // console.log("Successfully called summary[0].options.length", summary[0].options.length);
-
-      
-    // }
-    // catch(error){
-    //   console.error("Error during write op", error);
-    // }
   }
   
   handleError(error: any){
